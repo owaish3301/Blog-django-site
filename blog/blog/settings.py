@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ce1@)owr*5xi6(gw+0w0@zjz_-r042u==b_6)fjp$2w#-14k)^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'posts.apps.PostsConfig'
 ]
 
 MIDDLEWARE = [
@@ -104,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = ' "Asia/Kolkata"'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
