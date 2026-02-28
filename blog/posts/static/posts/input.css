@@ -1,17 +1,21 @@
 @font-face {
   font-family: 'Newsreader';
-  src: url('/static/posts/fonts/newsreader-regular.woff2') format('woff2'),
-       url('/static/posts/fonts/newsreader-regular.woff') format('woff');
+  src: url("./../../../static/fonts/Newsreader-VariableFont_opsz\,wght.ttf");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+}
+
+@font-face {
+    font-family: 'Unbounded';
+    src: url();
 }
 
 @import "tailwindcss";
 
 @theme {
   --color-bg: #ece5d8;
-  --color-bg-soft: #f5eee3;
+  --color-soft: #f5eee3;
   --color-ink: #171410;
   --color-muted: #5f574e;
   --color-line: #c7baaa;

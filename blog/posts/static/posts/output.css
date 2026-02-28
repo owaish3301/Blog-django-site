@@ -2,10 +2,14 @@
 @layer properties;
 @font-face {
   font-family: 'Newsreader';
-  src: url('/static/posts/fonts/newsreader-regular.woff2') format('woff2'), url('/static/posts/fonts/newsreader-regular.woff') format('woff');
+  src: url("./../../../static/fonts/Newsreader-VariableFont_opsz\,wght.ttf");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+}
+@font-face {
+  font-family: 'Unbounded';
+  src: url();
 }
 @layer theme, base, components, utilities;
 @layer theme {
@@ -15,8 +19,10 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --spacing: 0.25rem;
+    --radius-xl: 0.75rem;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
+    --color-soft: #f5eee3;
     --color-ink: #171410;
     --font-base: 'Newsreader', serif;
   }
@@ -197,6 +203,12 @@
   .my-4 {
     margin-block: calc(var(--spacing) * 4);
   }
+  .flex {
+    display: flex;
+  }
+  .inline-flex {
+    display: inline-flex;
+  }
   .table {
     display: table;
   }
@@ -209,15 +221,48 @@
   .resize {
     resize: both;
   }
+  .items-center {
+    align-items: center;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
+  .gap-2 {
+    gap: calc(var(--spacing) * 2);
+  }
   .scroll-smooth {
     scroll-behavior: smooth;
+  }
+  .rounded-full {
+    border-radius: calc(infinity * 1px);
+  }
+  .rounded-xl {
+    border-radius: var(--radius-xl);
   }
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .bg-soft {
+    background-color: var(--color-soft);
+  }
   .bg-size-\[4px_4px\] {
     background-size: 4px 4px;
+  }
+  .px-2 {
+    padding-inline: calc(var(--spacing) * 2);
+  }
+  .px-4 {
+    padding-inline: calc(var(--spacing) * 4);
+  }
+  .py-2 {
+    padding-block: calc(var(--spacing) * 2);
+  }
+  .py-3 {
+    padding-block: calc(var(--spacing) * 3);
+  }
+  .py-4 {
+    padding-block: calc(var(--spacing) * 4);
   }
   .font-base {
     font-family: var(--font-base);
@@ -228,6 +273,9 @@
   }
   .text-ink {
     color: var(--color-ink);
+  }
+  .uppercase {
+    text-transform: uppercase;
   }
   .underline {
     text-decoration-line: underline;
