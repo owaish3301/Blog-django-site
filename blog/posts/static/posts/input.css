@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'Newsreader';
+  src: url('/static/posts/fonts/newsreader-regular.woff2') format('woff2'),
+       url('/static/posts/fonts/newsreader-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #ece5d8;
+  --color-bg-soft: #f5eee3;
+  --color-ink: #171410;
+  --color-muted: #5f574e;
+  --color-line: #c7baaa;
+  --color-accent: #cf4d2d;
+  --color-accent-deep: #9f341b;
+  --color-accent-alt: #0e7a74;
+  --color-panel: #f8f3ea;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --shadow: 0 18px 40px rgba(23, 20, 16, 0.12);
+  --font-base: 'Newsreader', serif;
+}
+
+.custom-bg {
+  background:
+    radial-gradient(circle at 15% 5%, rgba(207,77,45,0.16), transparent 38%),
+    radial-gradient(circle at 86% 14%, rgba(14,122,116,0.16), transparent 34%),
+    linear-gradient(140deg, rgb(239,231,217), rgb(233,223,208) 48%, rgb(232,221,205));
+}
+
+.page-grain {
+    background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.55) 0.8px, transparent 0px);
+}
