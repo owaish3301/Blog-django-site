@@ -1,211 +1,144 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shadow Codes</title>
+{% extends "base.html" %}
 
-    <link rel="icon" type="image/png" href="{% static 'posts/blogger.png' %}" />
-    <link rel="stylesheet" href="{% static 'posts/output.css' %}" />
-  </head>
-  <body class="min-h-screen text-ink font-base leading-6 custom-bg">
-    <div
-      class="inset-0 z-0 fixed pointer-events-none opacity-15 page-grain bg-size-[4px_4px]"
-    ></div>
-    <div class="z-10 relative my-4 mx-auto px-4">
-      <header
-        class="bg-soft px-2 py-2 rounded-2xl grid gap-2 grid-cols-6 items-center shadow-lg"
+{% block title %}Shadow Codes | Home{% endblock %}
+
+{% block content %}
+<section class="flex flex-col gap-6">
+  {# Hero section #}
+  <div>
+    <p
+      class="text-accent-alt font-ibmMono text-sm tracking-wider mb-4 uppercase"
+    >
+      Feed
+    </p>
+    <h1
+      class="text-4xl/[1.06] tracking-tight font-unbounded font-medium"
+    >
+      Practical developer notes from real build cycles.
+      <span class="text-accent">
+        Clear takeaways you can use immediately.
+      </span>
+    </h1>
+    <p class="mt-4 text-muted text-lg/relaxed">
+      I share what each end-to-end project cycle taught me - idea,
+      build, test, and ship - through clear notes, practical guidance,
+      and weekly updates from real work.
+    </p>
+  </div>
+
+  {% if featured_blog %}
+    <aside class="bg-panel pt-4 pb-2 px-2 rounded-2xl shadow-lg">
+      <p
+        class="uppercase text-accent-alt font-ibmMono text-sm tracking-wider mb-2"
       >
+        Featured Blog
+      </p>
+      <article class="featured-post border border-line rounded-2xl p-4">
+        <h3 class="font-unbounded font-medium text-lg/tight">
+          {{ featured_blog.title }}
+        </h3>
+        <p class="my-2 text-muted">
+          {{ featured_blog.description }}
+        </p>
+        <p class="text-muted mb-2 underline">8 min read</p>
         <a
-          href="{% url 'get_all_posts' %}"
-          class="inline-flex items-center gap-2 col-span-5"
+          href=""
+          class="text-accent font-ibmMono uppercase text-sm/tight border rounded-full px-2 py-1 hover:bg-accent hover:text-bg"
         >
-          <img
-            src="{% static 'posts/blogger.png' %}"
-            alt="owaish-codes logo"
-            width="32px"
-          />
-          <p class="uppercase font-">Owaish Codes</p>
+          Read blog
         </a>
-        <button class="nav-dropdown col-start-6 justify-self-end">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-chevron-down-icon lucide-chevron-down"
-          >
-            <path d="m6 9 6 6 6-6" />
+      </article>
+    </aside>
+  {% endif %}
+</section>
+
+<section
+  class="mt-6 border border-line p-4 bg-panel rounded-2xl shadow-lg"
+>
+  {# latest posts #}
+  <p
+    class="text-accent-alt font-ibmMono text-sm tracking-wider mb-4 uppercase"
+  >
+    Latest Posts
+  </p>
+  <div class="grid gap-4">
+  {% if posts %}
+    {% for post in posts %}
+      <article class="border border-line rounded-2xl bg-bg p-4">
+        <p
+          class="text-accent-alt font-ibmMono text-xs tracking-widest mb-3 uppercase"
+        >
+          {{ post.published_at | date:"M j" }} - {{ post.category }}
+        </p>
+        <h3 class="leading-5 font-unbounded font-medium mb-3">
+          {{ post.title }}
+        </h3>
+        <p class="text-muted mb-3">
+          {{ post.description }}
+        </p>
+
+        <p class="text-muted mb-2 underline"> {{post.read_time }} min read </p>
+
+        <a
+          href="{% url 'post_detail' post.slug %}"
+          class="text-accent font-ibmMono uppercase text-sm/tight border rounded-full px-2 py-1 hover:bg-accent hover:text-bg"
+        >
+          Read blog
+        </a>
+      </article>
+    {% endfor %}
+    {% else %}
+      <div class="w-full flex items-center justify-center py-8">
+        <div class="max-w-xl text-center p-8 border border-line rounded-2xl bg-bg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 w-16 h-16 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h7l3 3v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 7v3h3" />
           </svg>
-        </button>
-        <nav
-          class="hidden col-span-6 border-2 border-line rounded-2xl py-4 px-4"
-        >
-          <ul class="font-ibmMono">
-            <li>
-              <a class="nav-link" href="{% url 'landing_page' %}">Home</a>
-            </li>
-            <li>
-              <a class="nav-link" href="{% url 'get_all_posts' %}">Blog</a>
-            </li>
-            <li>
-              <a class="nav-link" href="#">About us</a>
-            </li>
-            <li>
-              <a class="nav-link" href="#">Contact us</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
 
-      <main class="my-4">
-        <section class="flex flex-col gap-6">
-          {# Hero section #}
-          <div>
-            <p
-              class="text-accent-alt font-ibmMono text-sm tracking-wider mb-4 uppercase"
-            >
-              Feed
-            </p>
-            <h1
-              class="text-4xl/[1.06] tracking-tight font-unbounded font-medium"
-            >
-              Practical developer notes from real build cycles.
-              <span class="text-accent">
-                Clear takeaways you can use immediately.
-              </span>
-            </h1>
-            <p class="mt-4 text-muted text-lg/relaxed">
-              I share what each end-to-end project cycle taught me - idea,
-              build, test, and ship - through clear notes, practical guidance,
-              and weekly updates from real work.
-            </p>
+          <p class="text-accent-alt font-ibmMono text-xs tracking-widest mb-2 uppercase">No posts</p>
+          <h3 class="font-unbounded text-xl font-medium mb-2">No posts published yet</h3>
+          <p class="text-muted mb-4">There aren't any blog posts to show right now. Check back later or subscribe for updates.</p>
+
+          <div class="flex items-center justify-center gap-3">
+            <a href="#subscribe-btn" class="inline-block px-4 py-2 rounded-full bg-accent text-bg font-ibmMono text-sm uppercase hover:opacity-90">subscribe</a>
           </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
 
-          {% if featured_blog %}
-            <aside class="bg-panel pt-4 pb-2 px-2 rounded-2xl shadow-lg">
-              <p
-                class="uppercase text-accent-alt font-ibmMono text-sm tracking-wider mb-2"
-              >
-                Featured Blog
-              </p>
-              <article class="featured-post border border-line rounded-2xl p-4">
-                <h3 class="font-unbounded font-medium text-lg/tight">
-                  {{ featured_blog.title }}
-                </h3>
-                <p class="my-2 text-muted">
-                  {{ featured_blog.description }}
-                </p>
-                <p class="text-muted mb-2 underline">8 min read</p>
-                <a
-                  href=""
-                  class="text-accent font-ibmMono uppercase text-sm/tight border rounded-full px-2 py-1 hover:bg-accent hover:text-bg"
-                >
-                  Read blog
-                </a>
-              </article>
-            </aside>
-          {% endif %}
-        </section>
+<section
+  class="subscribe text-center border border-line rounded-2xl p-4 mt-6"
+>
+  <p
+    class="text-accent-alt font-ibmMono text-xs tracking-widest mb-3 uppercase"
+  >
+    Stay updated
+  </p>
+  <h2 class="text-2xl/[1.1] font-unbounded font-medium">
+    Get all new blogs directly in your inbox
+  </h2>
+  <form
+    action=""
+    class="border border-line rounded-2xl p-2 mt-4 bg-panel"
+  >
+    <label for="email-address" class="sr-only">Email address</label>
+    <input
+      id="email-address"
+      name="email-address"
+      type="email"
+      placeholder="you@domain.com"
+      required
+      class="font-ibmMono px-2 text-ink bg-transparent mb-2 w-full outline-0"
+    />
+    <button
+      id="subscribe-btn" class="w-full rounded-full px-4 py-2 font-ibmMono text-sm tracking-widest uppercase text-white hover:cursor-pointer bg-accent-deep"
+    >
+      Get Updates
+    </button>
+  </form>
+</section>
+{% endblock %}
 
-        <section
-          class="mt-6 border border-line p-4 bg-panel rounded-2xl shadow-lg"
-        >
-          {# latest posts #}
-          <p
-            class="text-accent-alt font-ibmMono text-sm tracking-wider mb-4 uppercase"
-          >
-            Latest Posts
-          </p>
-          <div class="grid gap-4">
-          {% if posts %}
-            {% for post in posts %}
-              <article class="border border-line rounded-2xl bg-bg p-4">
-                <p
-                  class="text-accent-alt font-ibmMono text-xs tracking-widest mb-3 uppercase"
-                >
-                  {{ post.published_at | date:"M j" }} - {{ post.category }}
-                </p>
-                <h3 class="leading-5 font-unbounded font-medium mb-3">
-                  {{ post.title }}
-                </h3>
-                <p class="text-muted mb-3">
-                  {{ post.description }}
-                </p>
 
-                <p class="text-muted mb-2 underline"> {{post.read_time }} min read </p>
-
-                <a
-                  href="{% url 'post_detail' post.slug %}"
-                  class="text-accent font-ibmMono uppercase text-sm/tight border rounded-full px-2 py-1 hover:bg-accent hover:text-bg"
-                >
-                  Read blog
-                </a>
-              </article>
-            {% endfor %}
-            {% else %}
-              <div class="w-full flex items-center justify-center py-8">
-                <div class="max-w-xl text-center p-8 border border-line rounded-2xl bg-bg">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 w-16 h-16 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h7l3 3v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 7v3h3" />
-                  </svg>
-
-                  <p class="text-accent-alt font-ibmMono text-xs tracking-widest mb-2 uppercase">No posts</p>
-                  <h3 class="font-unbounded text-xl font-medium mb-2">No posts published yet</h3>
-                  <p class="text-muted mb-4">There aren't any blog posts to show right now. Check back later or subscribe for updates.</p>
-
-                  <div class="flex items-center justify-center gap-3">
-                    <a href="#subscribe-btn" class="inline-block px-4 py-2 rounded-full bg-accent text-bg font-ibmMono text-sm uppercase hover:opacity-90">subscribe</a>
-                  </div>
-                </div>
-              </div>
-            {% endif %}
-          </div>
-        </section>
-
-        <section
-          class="subscribe text-center border border-line rounded-2xl p-4 mt-6"
-        >
-          <p
-            class="text-accent-alt font-ibmMono text-xs tracking-widest mb-3 uppercase"
-          >
-            Stay updated
-          </p>
-          <h2 class="text-2xl/[1.1] font-unbounded font-medium">
-            Get all new blogs directly in your inbox
-          </h2>
-          <form
-            action=""
-            class="border border-line rounded-2xl p-2 mt-4 bg-panel"
-          >
-            <label for="email-address" class="sr-only">Email address</label>
-            <input
-              id="email-address"
-              name="email-address"
-              type="email"
-              placeholder="you@domain.com"
-              required
-              class="font-ibmMono px-2 text-ink bg-transparent mb-2 w-full outline-0"
-            />
-            <button
-              id="subscribe-btn" class="w-full rounded-full px-4 py-2 font-ibmMono text-sm tracking-widest uppercase text-white hover:cursor-pointer bg-accent-deep"
-            >
-              Get Updates
-            </button>
-          </form>
-        </section>
-      </main>
-
-      <footer></footer>
-    </div>
-
-    <script type="module" src="{% static 'posts/blog.js' %}"></script>
-  </body>
-</html>

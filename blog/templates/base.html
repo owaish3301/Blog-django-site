@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Shadow Codes{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+    <link rel="icon" type="image/png" href="{% static 'blogger.png' %}" />
+  </head>
+  <body class="min-h-screen text-ink font-base leading-6 custom-bg">
+    <div
+      class="inset-0 z-0 fixed pointer-events-none opacity-15 page-grain bg-size-[4px_4px]"
+    ></div>
+    <div class="z-10 relative my-4 mx-auto px-4">
+      <header
+        class="bg-soft px-2 py-2 rounded-2xl grid gap-2 grid-cols-6 items-center shadow-lg"
+      >
+        <a
+          href="{% url 'get_all_posts' %}"
+          class="inline-flex items-center gap-2 col-span-5"
+        >
+          <img
+            src="{% static 'blogger.png' %}"
+            alt="owaish-codes logo"
+            width="32px"
+          />
+          <p class="uppercase font-">Owaish Codes</p>
+        </a>
+        <button class="nav-dropdown col-start-6 justify-self-end">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-chevron-down-icon lucide-chevron-down"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
+        <nav
+          class="hidden col-span-6 border-2 border-line rounded-2xl py-4 px-4"
+        >
+          <ul class="font-ibmMono">
+            <li>
+              <a class="nav-link" href="{% url 'landing_page' %}">Home</a>
+            </li>
+            <li>
+              <a class="nav-link" href="{% url 'get_all_posts' %}">Blog</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#">About us</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#">Contact us</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <main class="my-4">
+        {% block content %}{% endblock %}
+      </main>
+
+      <footer></footer>
+    </div>
+  </body>
+</html>
