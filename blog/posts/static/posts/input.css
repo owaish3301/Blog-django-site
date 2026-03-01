@@ -1,14 +1,20 @@
 @font-face {
   font-family: 'Newsreader';
   src: url("./../../../static/fonts/Newsreader-VariableFont_opsz\,wght.ttf");
-  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
     font-family: 'Unbounded';
-    src: url();
+    src: url("../../../static/fonts/Unbounded-VariableFont_wght.ttf");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBM-plex-mono';
+    src: url("../../../static/fonts/IBMPlexMono-Regular.ttf");
+    font-style: normal;
 }
 
 @import "tailwindcss";
@@ -27,6 +33,8 @@
   --radius-md: 16px;
   --shadow: 0 18px 40px rgba(23, 20, 16, 0.12);
   --font-base: 'Newsreader', serif;
+  --font-unbounded : 'Unbounded', serif;
+  --font-ibmMono : "IBM-plex-mono", serif;
 }
 
 .custom-bg {
@@ -38,4 +46,54 @@
 
 .page-grain {
     background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.55) 0.8px, transparent 0px);
+}
+
+/* Nav/link styles moved from output.css */
+:root {
+  --color-blue-400: oklch(70.7% 0.165 254.624);
+  --color-blue-500: oklch(62.3% 0.214 259.815);
+  --color-purple-500: oklch(62.7% 0.265 303.9);
+  --color-accent-alt: #0e7a74;
+}
+
+.nav-link {
+  color: var(--color-blue-500);
+  text-decoration: none;
+  transition: color 120ms ease-in-out, text-decoration 120ms ease-in-out;
+}
+.nav-link:hover {
+  color: var(--color-blue-400);
+  text-decoration: underline;
+}
+/* .nav-link:visited {
+  color: var(--color-purple-500);
+} */
+.nav-link:active {
+  color: var(--color-accent-alt);
+}
+
+.nav-link.active {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  pointer-events: none;
+}
+
+.nav-dropdown + nav a.nav-link {
+  display: inline-block;
+  margin-right: 0.75rem;
+}
+
+.lucide-chevron-down{
+  transition: 200ms ease;
+}
+
+.featured-post {
+  background: linear-gradient(150deg, rgba(207, 77, 45, 0.12), transparent 46%),#f7f1e7;
+}
+
+.subscribe {
+  background: linear-gradient(165deg, rgba(207, 77, 45, 0.12), transparent 44%),
+    linear-gradient(16deg, rgba(14, 122, 116, 0.14), transparent 56%),
+    color-mix(in srgb, #f8f3ea 80%, white 20%)
 }

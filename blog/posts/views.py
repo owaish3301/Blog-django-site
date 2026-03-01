@@ -1,8 +1,12 @@
 from django.shortcuts import render
-# from django.http import HttpResponse
+from .models import Post
 
 # Create your views here.
 
 
 def get_all_posts(request):
-    return render(request, "posts/blog.html")
+    posts = Post.objects.all()
+    return render(request, "posts/blog.html", {'posts': posts, 'featured_blog':None})
+
+def get_post_detail(request):
+    pass
