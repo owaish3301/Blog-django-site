@@ -58,29 +58,6 @@
   --color-accent-alt: #0e7a74;
 }
 
-.nav-link {
-  color: var(--color-blue-500);
-  text-decoration: none;
-  transition: color 120ms ease-in-out, text-decoration 120ms ease-in-out;
-}
-.nav-link:hover {
-  color: var(--color-blue-400);
-  text-decoration: underline;
-}
-/* .nav-link:visited {
-  color: var(--color-purple-500);
-} */
-.nav-link:active {
-  color: var(--color-accent-alt);
-}
-
-.nav-link.active {
-  color: var(--color-accent);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  pointer-events: none;
-}
-
 .nav-dropdown + nav a.nav-link {
   display: inline-block;
   margin-right: 0.75rem;

@@ -14,11 +14,11 @@
     ></div>
     <div class="z-10 relative my-4 mx-auto px-4">
       <header
-        class="bg-soft px-2 py-2 rounded-2xl grid gap-2 grid-cols-6 items-center shadow-lg"
+        class="bg-soft px-2 py-2 md:py-4 rounded-2xl md:rounded-full grid gap-2 grid-cols-6 items-center shadow-lg"
       >
         <a
           href="{% url 'get_all_posts' %}"
-          class="inline-flex items-center gap-2 col-span-5"
+          class="inline-flex items-center gap-2 col-span-5 md:col-span-2"
         >
           <img
             src="{% static 'assets/blogger.png' %}"
@@ -27,7 +27,7 @@
           />
           <p class="uppercase font-">Owaish Codes</p>
         </a>
-        <button class="nav-dropdown col-start-6 justify-self-end">
+        <button class="md:hidden nav-dropdown col-start-6 justify-self-end">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -44,20 +44,20 @@
           </svg>
         </button>
         <nav
-          class="hidden col-span-6 border-2 border-line rounded-2xl py-4 px-4"
+          class="hidden md:block col-span-6 md:col-start-3 md:col-span-full md:justify-self-end border-2 md:border-0 border-line rounded-2xl py-4 px-4 md:py-0"
         >
-          <ul class="font-ibmMono">
+          <ul class="font-ibmMono flex flex-col gap-2 md:flex-row">
             <li>
-              <a class="nav-link" href="{% url 'landing_page' %}">Home</a>
+              <a class="block text-ink no-underline text-sm font-ibmMono uppercase tracking-widest px-3.5 py-2.5 md:py-2 rounded-xl md:rounded-full bg-[#1714101a] md:bg-transparent md:hover:bg-[#1714101a] transition-colors" href="{% url 'landing_page' %}">Home</a>
             </li>
             <li>
-              <a class="nav-link" href="{% url 'get_all_posts' %}">Blog</a>
+              <a class="block text-ink no-underline text-sm font-ibmMono uppercase tracking-widest px-3.5 py-2.5 md:py-2 rounded-xl md:rounded-full bg-[#1714101a] md:bg-transparent md:hover:bg-[#1714101a] transition-colors" href="{% url 'get_all_posts' %}">Blog</a>
             </li>
             <li>
-              <a class="nav-link" href="#">About us</a>
+              <a class="block text-ink no-underline text-sm font-ibmMono uppercase tracking-widest px-3.5 py-2.5 md:py-2 rounded-xl md:rounded-full bg-[#1714101a] md:bg-transparent md:hover:bg-[#1714101a] transition-colors" href="#">About me</a>
             </li>
             <li>
-              <a class="nav-link" href="#">Contact us</a>
+              <a class="block text-ink no-underline text-sm font-ibmMono uppercase tracking-widest px-3.5 py-2.5 md:py-2 rounded-xl md:rounded-full bg-[#1714101a] md:bg-transparent md:hover:bg-[#1714101a] transition-colors" href="#">Contact me</a>
             </li>
           </ul>
         </nav>

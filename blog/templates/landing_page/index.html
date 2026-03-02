@@ -32,7 +32,7 @@
 </section>
 
 {# ── TOPICS GRID ── #}
-<section id="topics" class="py-10">
+<section id="topics" class="py-10 bg-panel rounded-2xl px-6">
   <p class="font-ibmMono text-sm tracking-widest uppercase text-accent-alt mb-2">Topics</p>
   <h2 class="text-2xl font-unbounded font-medium mb-6">Whatever catches my attention</h2>
   <p class="text-muted mb-8 max-w-xl">
@@ -104,7 +104,7 @@
 
 {# ── LATEST POSTS ── #}
 {% if latest_posts %}
-<section class="py-10">
+<section class="mt-10 py-10 bg-panel rounded-2xl px-6">
   <div class="flex items-end justify-between mb-6 flex-wrap gap-2">
     <div>
       <p class="font-ibmMono text-sm tracking-widest uppercase text-accent-alt mb-2">Recent</p>
@@ -113,6 +113,7 @@
     <a href="{% url 'get_all_posts' %}" class="font-ibmMono text-sm tracking-widest uppercase text-accent hover:text-accent-deep transition-colors">
       View all &rarr;
     </a>
+    <div class="w-full h-px bg-black"></div>
   </div>
 
   <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -137,53 +138,63 @@
 
 {# ── ABOUT ── #}
 <section class="py-10">
-  <div class="bg-soft rounded-2xl p-6 sm:p-8 border border-line/40 max-w-2xl">
-    <p class="font-ibmMono text-sm tracking-widest uppercase text-accent-alt mb-2">About me</p>
-    <h2 class="text-2xl font-unbounded font-medium mb-4">Hey, I'm Owaish</h2>
-    <p class="text-muted leading-relaxed mb-3">
-      I'm a developer who believes the best way to learn is by
-      doing&mdash;and then writing about it. This blog is my open notebook:
-      project breakdowns, half-baked ideas, rabbit holes I fell into, and the
-      occasional "aha!" moment.
-    </p>
-    <p class="text-muted leading-relaxed">
-      No polished thought-leadership. Just honest notes from someone who's still
-      figuring things out, one commit at a time.
-    </p>
+  <div class="bg-soft rounded-2xl p-6 sm:p-8 lg:p-12 border border-line/40">
+    <div class="lg:grid lg:grid-cols-5 lg:gap-12 lg:items-start">
+      <div class="lg:col-span-2 mb-4 lg:mb-0">
+        <p class="font-ibmMono text-sm tracking-widest uppercase text-accent-alt mb-2">About me</p>
+        <h2 class="text-2xl lg:text-3xl font-unbounded font-medium">Hey, I'm Owaish</h2>
+      </div>
+      <div class="lg:col-span-3">
+        <p class="text-muted leading-relaxed mb-3">
+          I'm a developer who believes the best way to learn is by
+          doing&mdash;and then writing about it. This blog is my open notebook:
+          project breakdowns, half-baked ideas, rabbit holes I fell into, and the
+          occasional "aha!" moment.
+        </p>
+        <p class="text-muted leading-relaxed">
+          No polished thought-leadership. Just honest notes from someone who's still
+          figuring things out.
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
 {# ── newsletter ── #}
 <section
-  class="subscribe text-center border border-line rounded-2xl p-4 mt-6"
+  class="subscribe border border-line rounded-2xl p-6 sm:p-8 lg:p-12 mt-6"
 >
-  <p
-    class="text-accent-alt font-ibmMono text-xs tracking-widest mb-3 uppercase"
-  >
-    Stay updated
-  </p>
-  <h2 class="text-2xl/[1.1] font-unbounded font-medium">
-    Get all new blogs directly in your inbox
-  </h2>
-  <form
-    action=""
-    class="border border-line rounded-2xl p-2 mt-4 bg-panel"
-  >
-    <label for="email-address" class="sr-only">Email address</label>
-    <input
-      id="email-address"
-      name="email-address"
-      type="email"
-      placeholder="you@domain.com"
-      required
-      class="font-ibmMono px-2 text-ink bg-transparent mb-2 w-full outline-0"
-    />
-    <button
-      id="subscribe-btn" class="w-full rounded-full px-4 py-2 font-ibmMono text-sm tracking-widest uppercase text-white hover:cursor-pointer bg-accent-deep"
+  <div class="lg:grid lg:grid-cols-2 lg:gap-12 lg:items-center">
+    <div class="text-center lg:text-left mb-4 lg:mb-0">
+      <p
+        class="text-accent-alt font-ibmMono text-xs tracking-widest mb-3 uppercase"
+      >
+        Stay updated
+      </p>
+      <h2 class="text-2xl/[1.1] lg:text-3xl/[1.1] font-unbounded font-medium">
+        Get all new blogs directly in your inbox
+      </h2>
+    </div>
+    <form
+      action=""
+      class="border border-line rounded-2xl p-2 bg-panel lg:flex lg:items-center lg:gap-2"
     >
-      Get Updates
-    </button>
-  </form>
+      <label for="email-address" class="sr-only">Email address</label>
+      <input
+        id="email-address"
+        name="email-address"
+        type="email"
+        placeholder="you@domain.com"
+        required
+        class="font-ibmMono px-2 py-2 text-ink bg-transparent mb-2 lg:mb-0 w-full outline-0"
+      />
+      <button
+        id="subscribe-btn" class="w-full lg:w-auto lg:shrink-0 rounded-full px-6 py-2 font-ibmMono text-sm tracking-widest uppercase text-white hover:cursor-pointer bg-accent-deep"
+      >
+        Get Updates
+      </button>
+    </form>
+  </div>
 </section>
 
 {% endblock %} {% block scripts %}
