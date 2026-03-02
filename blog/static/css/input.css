@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @font-face {
   font-family: 'Newsreader';
   src: url("./../../../static/fonts/Newsreader-VariableFont_opsz\,wght.ttf");
@@ -48,7 +50,7 @@
     background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.55) 0.8px, transparent 0px);
 }
 
-/* Nav/link styles moved from output.css */
+
 :root {
   --color-blue-400: oklch(70.7% 0.165 254.624);
   --color-blue-500: oklch(62.3% 0.214 259.815);
