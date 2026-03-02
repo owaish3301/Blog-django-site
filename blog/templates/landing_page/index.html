@@ -1,159 +1,272 @@
 {% extends "base.html" %} {% load static %} {% block title %}Shadow Codes{% endblock %} {% block content %}
 
 {# ── HERO ── #}
-<section class="py-10">
-  <div class="max-w-2xl">
+<section
+  class="py-16 md:py-32 flex flex-col items-center justify-center text-center border-b border-line/40 mb-16 relative overflow-hidden rounded-[2.5rem] bg-soft/40 shadow-sm backdrop-blur-sm group">
+  <div
+    class="absolute w-100 h-100 bg-accent-alt/10 rounded-full blur-[100px] -top-20 -left-20 transition-transform duration-1000 group-hover:scale-110 pointer-events-none">
+  </div>
+  <div
+    class="absolute w-87.5 h-87.5 bg-accent/15 rounded-full blur-[100px] -bottom-20 -right-20 transition-transform duration-1000 group-hover:scale-110 pointer-events-none">
+  </div>
+
+  <div class="relative z-10 px-4 max-w-4xl mx-auto flex flex-col items-center">
+    <div
+      class="w-16 h-16 rounded-2xl bg-white/50 backdrop-blur-md shadow-sm border border-white/20 flex items-center justify-center mb-8 rotate-3 transform transition-transform hover:rotate-12 hover:scale-110">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="text-accent">
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" y1="13" x2="8" y2="13" />
+        <line x1="16" y1="17" x2="8" y2="17" />
+        <line x1="10" y1="9" x2="8" y2="9" />
+      </svg>
+    </div>
+
     <p
-      class="mb-4 text-accent-alt font-ibmMono text-sm tracking-widest uppercase"
-    >
+      class="mb-6 text-accent-alt font-ibmMono text-sm tracking-widest uppercase font-bold bg-white/40 px-6 py-2 rounded-full border border-white/40 shadow-sm inline-block backdrop-blur-md">
       Learning in public
     </p>
-    <h1 class="text-4xl tracking-tight font-unbounded font-medium leading-snug">
-      I build things,
-      <span class="text-accent"> break them,</span>
-      and write about both.
+
+    <h1
+      class="text-5xl md:text-7xl lg:text-[6.5rem] tracking-tighter font-unbounded font-bold leading-[1.1] text-ink mb-8">
+      I build things,<br />
+      <span class="text-transparent bg-clip-text bg-linear-to-r from-accent to-accent-deep italic">break
+        them,</span><br />
+      and write about it.
     </h1>
-    <p class="mt-4 mb-8 text-muted text-lg leading-relaxed">
-      A developer learning through real projects and documenting the process
-      in public&mdash;the wins, the mistakes, and the patterns worth reusing.
+
+    <p class="mb-10 text-muted text-xl md:text-2xl leading-relaxed max-w-2xl font-base italic">
+      A developer learning through real projects and documenting the process in public—the wins, the mistakes, and the
+      patterns worth reusing.
     </p>
 
-    <div class="flex items-center gap-4 flex-wrap">
-      <a
-        href="{% url 'get_all_posts' %}"
-        class="hero-btn text-white rounded-full font-ibmMono uppercase px-6 py-3 tracking-widest text-sm transition-transform hover:scale-[1.03] active:scale-[0.98]"
-      >Explore blogs</a>
-      <a
-        href="#topics"
-        class="rounded-full border-2 border-line text-ink bg-panel font-ibmMono uppercase px-6 py-3 tracking-widest text-sm hover:border-accent transition-colors"
-      >What I write about</a>
+    <div class="flex items-center justify-center gap-4 flex-wrap">
+      <a href="{% url 'get_all_posts' %}"
+        class="hero-btn text-white rounded-full font-ibmMono uppercase px-8 py-4 tracking-widest text-sm transition-transform hover:scale-[1.03] active:scale-[0.98] font-bold shadow-[0_8px_20px_rgba(23,20,16,0.2)] hover:shadow-[0_12px_24px_rgba(159,52,27,0.3)] flex items-center gap-2 group/btn">
+        <span>Explore blogs</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover/btn:translate-x-1">
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
+      </a>
+      <a href="#topics"
+        class="rounded-full border border-line/60 text-ink bg-panel/80 backdrop-blur-md font-ibmMono uppercase px-8 py-4 tracking-widest text-sm hover:border-accent hover:bg-white transition-all shadow-sm font-semibold">What
+        I write about</a>
     </div>
   </div>
 </section>
 
 {# ── TOPICS GRID ── #}
-<section id="topics" class="py-10 bg-panel rounded-2xl px-6">
-  <p class="font-ibmMono text-sm tracking-widest uppercase text-accent-alt mb-2">Topics</p>
-  <h2 class="text-2xl font-unbounded font-medium mb-6">Whatever catches my attention</h2>
-  <p class="text-muted mb-8 max-w-xl">
-    There's no rigid niche here. I write about whatever I'm building, learning, or
-    figuring out. Here are a few flavours you'll find:
-  </p>
+<section id="topics" class="py-16 relative w-full mb-16">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+    <div class="max-w-xl">
+      <p
+        class="font-ibmMono text-sm tracking-widest uppercase text-accent-alt mb-3 font-semibold flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent-alt"></span>
+        Topics
+      </p>
+      <h2 class="text-4xl md:text-5xl font-unbounded font-bold leading-tight">Whatever catches my attention</h2>
+    </div>
+    <p class="text-muted text-lg font-base italic md:max-w-sm">
+      There's no rigid niche here. I write about whatever I'm building, learning, or figuring out.
+    </p>
+  </div>
 
-  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {% with topics="Build logs|Step-by-step walkthroughs of personal projects from idea to deploy.,How-to guides|Practical tutorials like 'Build a blog in Django' or 'Set up Tailwind'.,Dev concepts|Explanations of things like Git internals or how HTTP works.,Roadmaps|Curated learning paths for backend or frontend or full-stack.,Tools & workflow|Editor setups and CLI tricks and dev-environment tips.,Random brain dumps|Unfiltered thoughts on tech and career and the craft of coding." %}
-    {% for topic in topics|make_list %}{% endfor %}{# noop – template tag workaround #}
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
     {# Topic 1 #}
-    <div class="bg-panel rounded-2xl p-5 border border-line/50 hover:border-accent/40 transition-colors">
-      <span class="inline-block mb-3 text-accent">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 12h4"/><path d="M10 16h4"/></svg>
-      </span>
-      <h3 class="font-unbounded text-sm font-medium mb-1">Build logs</h3>
-      <p class="text-muted text-sm">Step-by-step walkthroughs of personal projects, from idea to deploy.</p>
+    <div
+      class="bg-panel/60 backdrop-blur-md rounded-4xl p-8 border border-line/40 hover:border-accent/40 hover:bg-white/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
+      <div
+        class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-accent mb-6 shadow-sm border border-line/20 group-hover:scale-110 transition-transform duration-300 group-hover:bg-accent group-hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+          <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+          <path d="M10 12h4" />
+          <path d="M10 16h4" />
+        </svg>
+      </div>
+      <h3 class="font-unbounded text-xl font-semibold mb-3">Build logs</h3>
+      <p class="text-muted text-base font-base leading-relaxed">Step-by-step walkthroughs of personal projects, from
+        idea to deploy.</p>
     </div>
 
     {# Topic 2 #}
-    <div class="bg-panel rounded-2xl p-5 border border-line/50 hover:border-accent/40 transition-colors">
-      <span class="inline-block mb-3 text-accent-alt">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
-      </span>
-      <h3 class="font-unbounded text-sm font-medium mb-1">How-to guides</h3>
-      <p class="text-muted text-sm">Practical tutorials like "Build a blog in Django" or "Set up Tailwind in Django"</p>
+    <div
+      class="bg-panel/60 backdrop-blur-md rounded-4xl p-8 border border-line/40 hover:border-accent-alt/40 hover:bg-white/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
+      <div
+        class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-accent-alt mb-6 shadow-sm border border-line/20 group-hover:scale-110 transition-transform duration-300 group-hover:bg-accent-alt group-hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m18 16 4-4-4-4" />
+          <path d="m6 8-4 4 4 4" />
+          <path d="m14.5 4-5 16" />
+        </svg>
+      </div>
+      <h3 class="font-unbounded text-xl font-semibold mb-3">How-to guides</h3>
+      <p class="text-muted text-base font-base leading-relaxed">Practical tutorials like "Build your own Git" or
+        "Set up Tailwind in Django"</p>
     </div>
 
     {# Topic 3 #}
-    <div class="bg-panel rounded-2xl p-5 border border-line/50 hover:border-accent/40 transition-colors">
-      <span class="inline-block mb-3 text-accent">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-      </span>
-      <h3 class="font-unbounded text-sm font-medium mb-1">Dev concepts</h3>
-      <p class="text-muted text-sm">Explanations of things like Git internals, REST vs GraphQL, or how HTTP works.</p>
+    <div
+      class="bg-panel/60 backdrop-blur-md rounded-4xl p-8 border border-line/40 hover:border-accent/40 hover:bg-white/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
+      <div
+        class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-accent mb-6 shadow-sm border border-line/20 group-hover:scale-110 transition-transform duration-300 group-hover:bg-accent group-hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4" />
+          <path d="M12 8h.01" />
+        </svg>
+      </div>
+      <h3 class="font-unbounded text-xl font-semibold mb-3">Dev concepts</h3>
+      <p class="text-muted text-base font-base leading-relaxed">Explanations of things like Git internals, REST vs
+        GraphQL, or how HTTP works.</p>
     </div>
 
     {# Topic 4 #}
-    <div class="bg-panel rounded-2xl p-5 border border-line/50 hover:border-accent/40 transition-colors">
-      <span class="inline-block mb-3 text-accent-alt">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.855z"/></svg>
-      </span>
-      <h3 class="font-unbounded text-sm font-medium mb-1">Roadmaps</h3>
-      <p class="text-muted text-sm">Curated learning paths for backend, frontend, or full-stack development.</p>
+    <div
+      class="bg-panel/60 backdrop-blur-md rounded-4xl p-8 border border-line/40 hover:border-accent-alt/40 hover:bg-white/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
+      <div
+        class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-accent-alt mb-6 shadow-sm border border-line/20 group-hover:scale-110 transition-transform duration-300 group-hover:bg-accent-alt group-hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9" />
+          <path
+            d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.855z" />
+        </svg>
+      </div>
+      <h3 class="font-unbounded text-xl font-semibold mb-3">Roadmaps</h3>
+      <p class="text-muted text-base font-base leading-relaxed">Curated learning paths for backend, frontend, or
+        full-stack development.</p>
     </div>
 
     {# Topic 5 #}
-    <div class="bg-panel rounded-2xl p-5 border border-line/50 hover:border-accent/40 transition-colors">
-      <span class="inline-block mb-3 text-accent">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
-      </span>
-      <h3 class="font-unbounded text-sm font-medium mb-1">Tools &amp; workflow</h3>
-      <p class="text-muted text-sm">Editor setups, CLI tricks, and dev-environment tips that save time.</p>
+    <div
+      class="bg-panel/60 backdrop-blur-md rounded-4xl p-8 border border-line/40 hover:border-accent/40 hover:bg-white/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
+      <div
+        class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-accent mb-6 shadow-sm border border-line/20 group-hover:scale-110 transition-transform duration-300 group-hover:bg-accent group-hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 7h-9" />
+          <path d="M14 17H5" />
+          <circle cx="17" cy="17" r="3" />
+          <circle cx="7" cy="7" r="3" />
+        </svg>
+      </div>
+      <h3 class="font-unbounded text-xl font-semibold mb-3">Tools &amp; workflow</h3>
+      <p class="text-muted text-base font-base leading-relaxed">Editor setups, CLI tricks, and dev-environment tips that
+        save time.</p>
     </div>
 
     {# Topic 6 #}
-    <div class="bg-panel rounded-2xl p-5 border border-line/50 hover:border-accent/40 transition-colors">
-      <span class="inline-block mb-3 text-accent-alt">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      </span>
-      <h3 class="font-unbounded text-sm font-medium mb-1">Random brain dumps</h3>
-      <p class="text-muted text-sm">Unfiltered thoughts on tech, career, and the craft of coding.</p>
+    <div
+      class="bg-panel/60 backdrop-blur-md rounded-4xl p-8 border border-line/40 hover:border-accent-alt/40 hover:bg-white/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
+      <div
+        class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-accent-alt mb-6 shadow-sm border border-line/20 group-hover:scale-110 transition-transform duration-300 group-hover:bg-accent-alt group-hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </svg>
+      </div>
+      <h3 class="font-unbounded text-xl font-semibold mb-3">Random brain dumps</h3>
+      <p class="text-muted text-base font-base leading-relaxed">Unfiltered thoughts on tech, career, and the craft of
+        coding.</p>
     </div>
 
-    {% endwith %}
   </div>
 </section>
 
 {# ── LATEST POSTS ── #}
 {% if latest_posts %}
-<section class="mt-10 py-10 bg-panel rounded-2xl px-6">
-  <div class="flex items-end justify-between mb-6 flex-wrap gap-2">
-    <div>
-      <p class="font-ibmMono text-sm tracking-widest uppercase text-accent-alt mb-2">Recent</p>
-      <h2 class="text-2xl font-unbounded font-medium">Latest from the blog</h2>
-    </div>
-    <a href="{% url 'get_all_posts' %}" class="font-ibmMono text-sm tracking-widest uppercase text-accent hover:text-accent-deep transition-colors">
-      View all &rarr;
+<section class="py-16 mb-16 border-t border-line/30">
+  <div class="flex items-center gap-4 mb-10">
+    <h2 class="font-ibmMono text-sm tracking-widest uppercase text-muted font-semibold flex items-center gap-2">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="text-accent-alt">
+        <path d="M12 20v-6M6 20V10M18 20V4" />
+      </svg>
+      Latest from the blog
+    </h2>
+    <div class="h-px flex-1 bg-line/40"></div>
+    <a href="{% url 'get_all_posts' %}"
+      class="shrink-0 font-ibmMono text-sm tracking-widest uppercase text-ink font-bold hover:text-accent flex items-center gap-1 group/link">
+      View all
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover/link:translate-x-1">
+        <path d="M5 12h14" />
+        <path d="m12 5 7 7-7 7" />
+      </svg>
     </a>
-    {# <div class="w-full h-px bg-black"></div> #}
   </div>
 
-  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
     {% for post in latest_posts %}
-    <article class="bg-panel rounded-2xl p-5 border border-line/50 hover:border-accent/30 transition-colors flex flex-col">
-      {% if post.category %}
-      <span class="font-ibmMono text-xs tracking-widest uppercase text-accent-alt mb-3">{{ post.category }}</span>
-      {% endif %}
-      <h3 class="font-unbounded text-base font-medium mb-2 leading-snug">{{ post.title }}</h3>
-      {% if post.description %}
-      <p class="text-muted text-sm mb-4 line-clamp-3 flex-1">{{ post.description }}</p>
-      {% endif %}
-      <div class="flex items-center justify-between mt-auto pt-3 border-t border-line/40">
-        <span class="text-muted text-xs font-ibmMono">{{ post.published_at|date:"M d, Y" }}</span>
-        <span class="text-muted text-xs font-ibmMono">{{ post.read_time }} min read</span>
-      </div>
-    </article>
+    <a href="{% url 'post_detail' post.slug %}" class="group block h-full">
+      <article
+        class="bg-panel/50 backdrop-blur-sm rounded-4xl p-6 lg:p-8 border border-line/40 hover:border-accent/40 hover:bg-white transition-all duration-300 flex flex-col h-full hover:-translate-y-2 hover:shadow-xl relative overflow-hidden">
+        {% if post.category %}
+        <span class="font-ibmMono text-[10px] md:text-xs tracking-widest uppercase text-accent-alt mb-5 font-bold">
+          {{ post.category }}</span>
+        {% endif %}
+
+        <h3
+          class="font-unbounded text-xl md:text-2xl font-semibold mb-4 leading-snug group-hover:text-accent transition-colors duration-300">
+          {{ post.title }}
+        </h3>
+
+        {% if post.description %}
+        <p class="text-muted text-base mb-8 line-clamp-3 flex-1 font-base leading-relaxed">{{ post.description }}</p>
+        {% endif %}
+
+        <div class="flex items-center justify-between mt-auto pt-5 border-t border-line/30">
+          <span class="text-muted text-xs font-ibmMono">{{ post.published_at|date:"M d, Y" }}</span>
+          <span
+            class="text-accent text-xs font-ibmMono font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-1">Read
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg></span>
+        </div>
+      </article>
+    </a>
     {% endfor %}
   </div>
 </section>
 {% endif %}
 
 {# ── ABOUT ── #}
-<section class="py-10">
-  <div class="bg-soft rounded-2xl p-6 sm:p-8 lg:p-12 border border-line/40">
-    <div class="lg:grid lg:grid-cols-5 lg:gap-12 lg:items-start">
-      <div class="lg:col-span-2 mb-4 lg:mb-0">
-        <p class="font-ibmMono text-sm tracking-widest uppercase text-accent-alt mb-2">About me</p>
-        <h2 class="text-2xl lg:text-3xl font-unbounded font-medium">Hey, I'm Owaish</h2>
+<section class="py-16 mb-8 relative">
+  <div
+    class="absolute inset-0 bg-linear-to-br from-panel to-soft/30 rounded-[3rem] border border-line/40 -z-10 shadow-sm">
+  </div>
+  <div class="p-8 sm:p-12 lg:p-16">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
+      <div class="lg:col-span-5 mb-10 lg:mb-0">
+        <div
+          class="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-md border border-line/30 mb-6 overflow-hidden">
+          <img src="{% static 'assets/blogger.png' %}" alt="Avatar" class="w-10 h-10 object-contain" />
+        </div>
+        <p class="font-ibmMono text-sm tracking-widest uppercase text-accent-alt mb-3 font-semibold">About me</p>
+        <h2 class="text-4xl lg:text-5xl font-unbounded font-bold leading-tight">Hey, I'm Owaish</h2>
       </div>
-      <div class="lg:col-span-3">
-        <p class="text-muted leading-relaxed mb-3">
+      <div class="lg:col-span-7">
+        <p class="text-ink text-xl md:text-2xl leading-relaxed mb-6 font-base italic border-l-4 border-accent pl-6">
           I'm a developer who believes the best way to learn is by
-          doing&mdash;and then writing about it. This blog is my open notebook:
-          project breakdowns, half-baked ideas, rabbit holes I fell into, and the
+          doing&mdash;and then writing about it.
+        </p>
+        <p class="text-muted text-lg leading-relaxed mb-6 font-base max-w-2xl">
+          This blog is my open notebook: project breakdowns, half-baked ideas, rabbit holes I fell into, and the
           occasional "aha!" moment.
         </p>
-        <p class="text-muted leading-relaxed">
-          No polished thought-leadership. Just honest notes from someone who's still
-          figuring things out.
+        <p
+          class="text-accent-deep/80 font-ibmMono text-sm tracking-wide lowercase bg-white/50 backdrop-blur-sm inline-block px-4 py-2 rounded-lg border border-line/30 shadow-inner">
+          // No polished thought-leadership. Just honest notes.
         </p>
       </div>
     </div>
@@ -161,42 +274,54 @@
 </section>
 
 {# ── newsletter ── #}
-<section
-  class="subscribe border border-line rounded-2xl p-6 sm:p-8 lg:p-12 mt-6"
->
-  <div class="lg:grid lg:grid-cols-2 lg:gap-12 lg:items-center">
-    <div class="text-center lg:text-left mb-4 lg:mb-0">
-      <p
-        class="text-accent-alt font-ibmMono text-xs tracking-widest mb-3 uppercase"
-      >
+<section id="subscribe"
+  class="subscribe-card relative rounded-[3rem] p-10 lg:p-16 overflow-hidden border border-line/40 shadow-xl group mb-20">
+  <div
+    class="absolute -right-20 -top-20 w-64 h-64 bg-accent/20 rounded-full blur-[60px] transition-transform duration-1000 group-hover:scale-150 pointer-events-none">
+  </div>
+  <div
+    class="absolute -left-20 -bottom-20 w-64 h-64 bg-accent-alt/20 rounded-full blur-[60px] transition-transform duration-1000 group-hover:scale-150 pointer-events-none">
+  </div>
+
+  <div class="relative z-10 lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center max-w-5xl mx-auto">
+    <div class="text-center lg:text-left mb-10 lg:mb-0">
+      <div
+        class="w-12 h-12 bg-white/50 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-white/20 mx-auto lg:mx-0">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" class="text-accent-deep">
+          <rect width="20" height="16" x="2" y="4" rx="2" />
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+        </svg>
+      </div>
+      <p class="text-accent-alt font-ibmMono text-xs tracking-widest mb-3 uppercase font-bold">
         Stay updated
       </p>
-      <h2 class="text-2xl/[1.1] lg:text-3xl/[1.1] font-unbounded font-medium">
-        Get all new blogs directly in your inbox
+      <h2 class="text-4xl lg:text-5xl font-unbounded font-bold leading-tight text-ink">
+        Weekly brain dumps directly in your inbox.
       </h2>
     </div>
-    <form
-      action=""
-      class="border border-line rounded-2xl p-2 bg-panel lg:flex lg:items-center lg:gap-2"
-    >
+    <form action="" class="flex flex-col gap-4">
       <label for="email-address" class="sr-only">Email address</label>
-      <input
-        id="email-address"
-        name="email-address"
-        type="email"
-        placeholder="you@domain.com"
-        required
-        class="font-ibmMono px-2 py-2 text-ink bg-transparent mb-2 lg:mb-0 w-full outline-0"
-      />
-      <button
-        id="subscribe-btn" class="w-full lg:w-auto lg:shrink-0 rounded-full px-6 py-2 font-ibmMono text-sm tracking-widest uppercase text-white hover:cursor-pointer bg-accent-deep"
-      >
-        Get Updates
+      <div class="relative font-ibmMono">
+        <input id="email-address" name="email-address" type="email" placeholder="you@domain.com" required
+          class="w-full bg-white/80 backdrop-blur-sm border border-line/60 rounded-full px-6 py-4 text-base text-ink outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all shadow-inner placeholder:text-muted/50" />
+      </div>
+      <button id="subscribe-btn"
+        class="w-full relative overflow-hidden rounded-full font-ibmMono text-sm tracking-widest uppercase text-white hover:cursor-pointer bg-ink group/btn py-4 flex items-center justify-center gap-2 transition-all hover:bg-accent-deep shadow-[0_8px_20px_rgba(23,20,16,0.2)] hover:shadow-[0_12px_24px_rgba(159,52,27,0.3)]">
+        <span class="relative z-10 font-bold">Subscribe</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round"
+          class="relative z-10 transition-transform group-hover/btn:translate-x-1">
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
       </button>
     </form>
   </div>
 </section>
 
-{% endblock %} {% block scripts %}
+{% endblock %}
+
+{% block scripts %}
 <script type="module" src="{% static 'scripts/navBarExpand.js' %}"></script>
 {% endblock %}

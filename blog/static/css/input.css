@@ -19,8 +19,6 @@
     font-style: normal;
 }
 
-@import "tailwindcss";
-
 @theme {
   --color-bg: #ece5d8;
   --color-soft: #f5eee3;
@@ -44,6 +42,7 @@
     radial-gradient(circle at 15% 5%, rgba(207,77,45,0.16), transparent 38%),
     radial-gradient(circle at 86% 14%, rgba(14,122,116,0.16), transparent 34%),
     linear-gradient(140deg, rgb(239,231,217), rgb(233,223,208) 48%, rgb(232,221,205));
+    background-attachment: fixed;
 }
 
 .page-grain {
@@ -71,10 +70,22 @@
   background: linear-gradient(150deg, rgba(207, 77, 45, 0.12), transparent 46%),#f7f1e7;
 }
 
+.featured-post-custom {
+  background: 
+    linear-gradient(135deg, rgba(248,243,234,0.95) 0%, rgba(207,77,45,0.08) 100%),
+    url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c7baaa' fill-opacity='0.15' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3C/g%3E%3C/svg%3E");
+}
+
 .subscribe {
   background: linear-gradient(165deg, rgba(207, 77, 45, 0.12), transparent 44%),
     linear-gradient(16deg, rgba(14, 122, 116, 0.14), transparent 56%),
-    color-mix(in srgb, #f8f3ea 80%, white 20%)
+    color-mix(in srgb, #f8f3ea 80%, white 20%);
+}
+
+.subscribe-card {
+  background: 
+    linear-gradient(145deg, rgba(248, 243, 234, 0.95), rgba(245, 238, 227, 0.85)),
+    url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c7baaa' fill-opacity='0.2' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .hero-btn {
@@ -91,4 +102,20 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Custom scrollbar for better aesthetics */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #ece5d8;
+}
+::-webkit-scrollbar-thumb {
+  background: #c7baaa;
+  border-radius: 10px;
+  border: 3px solid #ece5d8;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5f574e;
 }

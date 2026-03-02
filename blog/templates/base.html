@@ -1,75 +1,74 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Shadow Codes{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
-    <link rel="icon" type="image/png" href="{% static 'assets/blogger.png' %}" />
-  </head>
-  <body class="min-h-screen text-ink font-base leading-6 custom-bg">
-    <div
-      class="inset-0 z-0 fixed pointer-events-none opacity-15 page-grain bg-size-[4px_4px]"
-    ></div>
-    <div class="z-10 relative my-4 mx-auto px-4">
-      <header
-        class="bg-soft px-2 py-2 md:py-4 rounded-2xl md:rounded-full grid gap-2 grid-cols-6 items-center shadow-lg"
-      >
-        <a
-          href="{% url 'get_all_posts' %}"
-          class="inline-flex items-center gap-2 col-span-5 md:col-span-2"
-        >
-          <img
-            src="{% static 'assets/blogger.png' %}"
-            alt="owaish-codes logo"
-            width="32px"
-          />
-          <p class="uppercase font-">Owaish Codes</p>
-        </a>
-        <button class="md:hidden nav-dropdown col-start-6 justify-self-end">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-chevron-down-icon lucide-chevron-down"
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </button>
-        <nav
-          class="hidden md:block col-span-6 md:col-start-3 md:col-span-full md:justify-self-end border-2 md:border-0 border-line rounded-2xl py-4 px-4 md:py-0"
-        >
-          <ul class="font-ibmMono flex flex-col gap-2 md:flex-row">
-            <li>
-              <a class="block text-ink no-underline text-sm font-ibmMono uppercase tracking-widest px-3.5 py-2.5 md:py-2 rounded-xl md:rounded-full bg-[#1714101a] md:bg-transparent md:hover:bg-[#1714101a] transition-colors" href="{% url 'landing_page' %}">Home</a>
-            </li>
-            <li>
-              <a class="block text-ink no-underline text-sm font-ibmMono uppercase tracking-widest px-3.5 py-2.5 md:py-2 rounded-xl md:rounded-full bg-[#1714101a] md:bg-transparent md:hover:bg-[#1714101a] transition-colors" href="{% url 'get_all_posts' %}">Blog</a>
-            </li>
-            <li>
-              <a class="block text-ink no-underline text-sm font-ibmMono uppercase tracking-widest px-3.5 py-2.5 md:py-2 rounded-xl md:rounded-full bg-[#1714101a] md:bg-transparent md:hover:bg-[#1714101a] transition-colors" href="#">About me</a>
-            </li>
-            <li>
-              <a class="block text-ink no-underline text-sm font-ibmMono uppercase tracking-widest px-3.5 py-2.5 md:py-2 rounded-xl md:rounded-full bg-[#1714101a] md:bg-transparent md:hover:bg-[#1714101a] transition-colors" href="#">Contact me</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
 
-      <main class="my-4">
-        {% block content %}{% endblock %}
-      </main>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Shadow Codes{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  <link rel="icon" type="image/png" href="{% static 'assets/blogger.png' %}" />
+</head>
 
-      <footer></footer>
-    </div>
+<body class="min-h-screen text-ink font-base leading-6 custom-bg">
+  <div class="inset-0 z-0 fixed pointer-events-none opacity-15 page-grain bg-size-[4px_4px]"></div>
+  <div class="z-10 relative my-4 mx-auto px-4">
+    <header
+      class="bg-soft/80 backdrop-blur-xl border border-line/40 px-3 py-3 md:py-3 rounded-4xl md:rounded-full grid gap-2 grid-cols-6 items-center shadow-sm sticky top-4 z-50 transition-all duration-500 hover:shadow-lg hover:bg-soft/95 hover:border-line/60 mx-auto max-w-350">
+      <a href="{% url 'get_all_posts' %}" class="inline-flex items-center gap-3 col-span-5 md:col-span-2 group md:pl-2">
+        <div
+          class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-line/30 group-hover:border-accent group-hover:shadow-md transition-all duration-300 overflow-hidden relative">
+          <div
+            class="absolute inset-0 bg-accent/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+          </div>
+          <img src="{% static 'assets/blogger.png' %}" alt="owaish-codes logo"
+            class="w-6 h-6 object-contain relative z-10 group-hover:scale-110 transition-transform duration-300" />
+        </div>
+        <p
+          class="uppercase font-ibmMono font-bold tracking-widest text-sm text-ink group-hover:text-accent transition-colors duration-300">
+          Owaish Codes</p>
+      </a>
+      <button
+        class="md:hidden nav-dropdown col-start-6 justify-self-end w-10 h-10 bg-panel/50 backdrop-blur-md rounded-full flex items-center justify-center border border-line/50 hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 shadow-sm text-ink">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-chevron-down-icon lucide-chevron-down">
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
+      <nav
+        class="hidden md:block col-span-6 md:col-start-3 md:col-span-full md:justify-self-end border border-line/40 md:border-0 rounded-4xl py-4 px-4 md:py-0 mt-3 md:mt-0 bg-panel/90 md:bg-transparent backdrop-blur-md md:backdrop-blur-none shadow-inner md:shadow-none transition-all duration-300">
+        <ul class="font-ibmMono flex flex-col gap-2 md:flex-row md:items-center md:pr-1">
+          {% url 'landing_page' as url_home %}
+          <li>
+            <a class="block text-ink no-underline text-xs md:text-sm font-ibmMono font-semibold uppercase tracking-widest px-5 py-3 md:py-2.5 rounded-full hover:bg-white hover:shadow-sm md:hover:bg-white/60 transition-all duration-300 text-center md:text-left hover:-translate-y-0.5 {% if request.path == url_home %}bg-white shadow-sm border border-line/30{% else %}bg-white/40 md:bg-transparent border border-transparent hover:border-line/30{% endif %}"
+              href="{{ url_home }}">Home</a>
+          </li>
+          {% url 'get_all_posts' as url_blog %}
+          <li>
+            <a class="block text-ink no-underline text-xs md:text-sm font-ibmMono font-semibold uppercase tracking-widest px-5 py-3 md:py-2.5 rounded-full hover:bg-white hover:shadow-sm md:hover:bg-white/60 transition-all duration-300 text-center md:text-left hover:-translate-y-0.5 {% if request.path == url_blog or '/blog/' in request.path or '/post/' in request.path %}bg-white shadow-sm border border-line/30{% else %}bg-white/40 md:bg-transparent border border-transparent hover:border-line/30{% endif %}"
+              href="{{ url_blog }}">Blog</a>
+          </li>
+          <li>
+            <a class="block text-ink no-underline text-xs md:text-sm font-ibmMono font-semibold uppercase tracking-widest px-5 py-3 md:py-2.5 rounded-full hover:bg-white hover:shadow-sm md:hover:bg-white/60 transition-all duration-300 border border-transparent hover:border-line/30 text-center md:text-left hover:-translate-y-0.5 {% if '/about/' in request.path %}bg-white shadow-sm border border-line/30{% else %}bg-white/40 md:bg-transparent border border-transparent hover:border-line/30{% endif %}"
+              href="#">About me</a>
+          </li>
+          <li>
+            <a class="block text-white no-underline text-xs md:text-sm font-ibmMono font-bold uppercase tracking-widest px-6 py-3 md:py-2.5 rounded-full bg-ink hover:bg-accent-deep hover:shadow-lg transition-all duration-300 border border-ink hover:border-accent-deep ml-0 md:ml-2 mt-2 md:mt-0 shadow-md justify-center hover:-translate-y-0.5"
+              href="#">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-    {% block scripts %}{% endblock %}
-  </body>
+    <main class="my-4">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer></footer>
+  </div>
+
+  {% block scripts %}{% endblock %}
+</body>
+
 </html>
