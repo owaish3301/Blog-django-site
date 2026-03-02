@@ -99,3 +99,8 @@
     linear-gradient(16deg, rgba(14, 122, 116, 0.14), transparent 56%),
     color-mix(in srgb, #f8f3ea 80%, white 20%)
 }
+
+.hero-btn {
+  background: linear-gradient(145deg, #cf4d2d, #9f341b);
+  box-shadow: 0 12px 26px rgba(159, 52, 27, 0.32);
+}

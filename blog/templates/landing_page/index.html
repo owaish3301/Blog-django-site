@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% load static %} {% block title %}Shadow Codes{%endblock %} {% block content %}
+
+<section>
+  <div>
+    <p
+      class="mb-4 pt-4 text-accent-alt font-ibmMono text-sm tracking-widest uppercase"
+    >
+      Learning in public
+    </p>
+    <h1 class="text-4xl tracking-tight font-unbounded font-medium">
+      Building systems in public.
+      <span class="text-accent">Learning as I go.</span>
+      Sharing what actually worked.
+    </h1>
+    <p class="mt-4 mb-6 text-muted">
+        I am a developer learning through real projects and documenting the process in public: the wins, the mistakes, and the patterns worth reusing.
+    </p>
+
+    <a href="{% url 'get_all_posts' %}" class="hero-btn text-white rounded-full font-ibmMono uppercase px-4 py-3 tracking-widest text-sm">Explore blogs</a>
+  </div>
+  <aside class="hidden">{# will use this for stats later #}</aside>
+</section>
+
+{% endblock %} {% block scripts %}
+<script type="module" src="{% static 'scripts/navBarExpand.js' %}"></script>
+{% endblock %}

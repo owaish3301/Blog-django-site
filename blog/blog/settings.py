@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'posts.apps.PostsConfig',
-    'landing_page.apps.LandingPageConfig',
     'django_browser_reload',
 ]
 
