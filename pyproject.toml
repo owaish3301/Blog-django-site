@@ -8,3 +8,8 @@ dependencies = [
     "django>=6.0.2",
     "django-browser-reload>=1.21.0",
 ]
+
+[dependency-groups]
+dev = [
+    "django-stubs>=5.2.9",
+]

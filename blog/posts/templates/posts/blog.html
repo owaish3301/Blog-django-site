@@ -5,33 +5,6 @@
 
 {% block content %}
 
-{# ── PAGE HEADER ── #}
-<section
-  class="py-12 md:py-24 flex flex-col items-center justify-center text-center border-b border-line/40 mb-12 relative overflow-hidden rounded-4xl bg-soft/50 shadow-sm backdrop-blur-sm group">
-  <div
-    class="absolute w-75 h-75 bg-accent/20 rounded-full blur-[80px] -top-10 -left-10 transition-transform duration-1000 group-hover:scale-110">
-  </div>
-  <div
-    class="absolute w-62.5 h-62.5 bg-accent-alt/20 rounded-full blur-[80px] -bottom-10 -right-10 transition-transform duration-1000 group-hover:scale-110">
-  </div>
-  <div class="relative z-10 px-4">
-    <h1
-      class="text-6xl md:text-8xl lg:text-[10rem] font-unbounded font-bold tracking-tighter text-ink mb-4 md:mb-6 leading-none">
-      THE BLOG</h1>
-    <p class="text-xl md:text-2xl text-muted font-base max-w-2xl mx-auto italic">Notes, guides &amp; brain dumps from
-      real projects. A collection of thoughts on code and design.</p>
-    {% if total_count %}
-    <div
-      class="mt-8 mx-auto inline-flex items-center gap-2 bg-panel px-6 py-2 rounded-full border border-line/50 shadow-sm">
-      <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-      <p class="font-ibmMono text-xs tracking-widest uppercase text-ink font-semibold">
-        {{ total_count }} published blog{{ total_count|pluralize }}
-      </p>
-    </div>
-    {% endif %}
-  </div>
-</section>
-
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16 relative">
 
   <div class="lg:col-span-8 flex flex-col gap-16 lg:gap-24">

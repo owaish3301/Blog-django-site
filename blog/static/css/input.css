@@ -2,21 +2,27 @@
 
 @font-face {
   font-family: 'Newsreader';
-  src: url("./../../../static/fonts/Newsreader-VariableFont_opsz\,wght.ttf");
+  src: url("../fonts/Newsreader-VariableFont_opsz,wght-subset.woff2") format("woff2");
   font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  font-optical-sizing: auto;
+}
+
+@font-face {
+  font-family: 'Unbounded';
+  src: url("../fonts/Unbounded-VariableFont_wght-subset.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 900;
   font-display: swap;
 }
 
 @font-face {
-    font-family: 'Unbounded';
-    src: url("../../../static/fonts/Unbounded-VariableFont_wght.ttf");
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'IBM-plex-mono';
-    src: url("../../../static/fonts/IBMPlexMono-Regular.ttf");
-    font-style: normal;
+  font-family: 'IBM-plex-mono';
+  src: url("../fonts/IBMPlexMono-Regular-subset.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
 }
 
 @theme {
@@ -32,9 +38,9 @@
   --radius-lg: 24px;
   --radius-md: 16px;
   --shadow: 0 18px 40px rgba(23, 20, 16, 0.12);
-  --font-base: 'Newsreader', serif;
-  --font-unbounded : 'Unbounded', serif;
-  --font-ibmMono : "IBM-plex-mono", serif;
+  --font-base: 'Newsreader', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-unbounded : 'Unbounded', ui-sans-serif, system-ui, sans-serif;
+  --font-ibmMono : "IBM-plex-mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .custom-bg {
