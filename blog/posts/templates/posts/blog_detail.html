@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load static %}
+{% load markdown_extras %}
+
+{% block title %}{{ blog.title }} | Shadow Codes{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'posts/css/blog_detail.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<div id="reading-progress" class="fixed top-0 left-0 h-[3px] w-0 z-[999] transition-none pointer-events-none"
+    style="background: linear-gradient(90deg, #cf4d2d, #0e7a74);"></div>
+
+<article class="max-w-350 mx-auto">
+
+    <div class="mb-10">
+        <a href="{% url 'get_all_posts' %}"
+            class="inline-flex items-center gap-2 font-ibmMono text-xs tracking-widest uppercase text-muted hover:text-accent transition-colors duration-200 group">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:-translate-x-1">
+                <path d="M19 12H5" />
+                <path d="m12 5-7 7 7 7" />
+            </svg>
+            All posts
+        </a>
+    </div>
+
+    <header class="mb-12 md:mb-16 relative overflow-hidden">
+        <div class="absolute -top-10 -left-20 w-72 h-72 bg-accent/10 rounded-full blur-[80px] pointer-events-none">
+        </div>
+        <div
+            class="absolute -bottom-10 -right-20 w-72 h-72 bg-accent-alt/10 rounded-full blur-[80px] pointer-events-none">
+        </div>
+
+        <div class="relative z-10 p-6">
+            {% if blog.category %}
+            <span
+                class="inline-block font-ibmMono text-xs tracking-widest uppercase text-white bg-accent-alt px-4 py-2 rounded-full mb-6 shadow-sm">
+                {{ blog.category }}
+            </span>
+            {% endif %}
+
+            <h1 class="font-unbounded text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight text-ink mb-6">
+                {{ blog.title }}
+            </h1>
+
+            {% if blog.description %}
+            <p class="text-xl md:text-2xl text-muted font-base italic leading-relaxed mb-8 max-w-3xl">
+                {{ blog.description }}
+            </p>
+            {% endif %}
+
+            <div
+                class="flex flex-wrap items-center gap-6 font-ibmMono text-sm text-muted border-t border-b border-line/40 py-5">
+                <div class="flex items-center gap-2">
+                    <div
+                        class="w-8 h-8 rounded-full bg-soft border border-line/50 flex items-center justify-center overflow-hidden shadow-sm">
+                        <img src="{% static 'assets/blogger.png' %}" alt="author" class="w-5 h-5 object-contain" />
+                    </div>
+                    <span class="text-ink font-semibold">
+                        {{ blog.author.get_full_name|default:blog.author.username }}
+                    </span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="text-accent">
+                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                        <line x1="16" x2="16" y1="2" y2="6" />
+                        <line x1="8" x2="8" y1="2" y2="6" />
+                        <line x1="3" x2="21" y1="10" y2="10" />
+                    </svg>
+                    <time datetime="{{ blog.published_at|date:'Y-m-d' }}">{{ blog.published_at|date:"F j, Y" }}</time>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="text-accent-alt">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <span>{{ blog.read_time }} min read</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+
+        <div class="lg:col-span-8">
+            <div class="prose-content">
+                {{ blog.body | markdownify }}
+            </div>
+
+            <footer class="mt-16 pt-8 border-t border-line/40">
+                <div class="flex items-start justify-between flex-wrap gap-6">
+                    <div>
+                        <p class="font-ibmMono text-xs tracking-widest uppercase text-muted mb-3">Written by</p>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-full bg-soft border border-line/50 flex items-center justify-center overflow-hidden shadow-sm">
+                                <img src="{% static 'assets/blogger.png' %}" alt="author"
+                                    class="w-6 h-6 object-contain" />
+                            </div>
+                            <div>
+                                <p class="font-ibmMono text-sm font-semibold text-ink">
+                                    {{ blog.author.get_full_name|default:blog.author.username }}
+                                </p>
+                                <p class="text-muted text-xs font-ibmMono">{{ blog.published_at|date:"M d, Y" }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="{% url 'get_all_posts' %}"
+                        class="inline-flex items-center gap-2 hero-btn text-white rounded-full font-ibmMono uppercase px-6 py-3 tracking-widest text-xs transition-all hover:scale-[1.03] active:scale-[0.98] font-bold">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 12H5" />
+                            <path d="m12 5-7 7 7 7" />
+                        </svg>
+                        More posts
+                    </a>
+                </div>
+            </footer>
+        </div>
+
+        <aside class="lg:col-span-4 hidden lg:block">
+            <div class="sticky top-24 flex flex-col gap-6">
+
+                <div id="toc-widget"
+                    class="rounded-[2rem] bg-panel/50 border border-line/40 p-6 backdrop-blur-sm hidden">
+                    <h2
+                        class="font-ibmMono text-xs tracking-widest uppercase text-muted font-semibold mb-4 flex items-center gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" x2="21" y1="6" y2="6" />
+                            <line x1="8" x2="21" y1="12" y2="12" />
+                            <line x1="8" x2="21" y1="18" y2="18" />
+                            <line x1="3" x2="3.01" y1="6" y2="6" />
+                            <line x1="3" x2="3.01" y1="12" y2="12" />
+                            <line x1="3" x2="3.01" y1="18" y2="18" />
+                        </svg>
+                        On this page
+                    </h2>
+                    <nav id="toc-list" class="flex flex-col gap-1 font-ibmMono text-sm"></nav>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+</article>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="module" src="{% static 'scripts/navBarExpand.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<script src="{% static 'posts/scripts/blog_detail.js' %}"></script>
+{% endblock %}
