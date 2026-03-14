@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from .models import Post
 from django.utils import timezone
@@ -11,11 +12,16 @@ def get_all_posts(request):
     total_count = published.count()
     featured_blog = published.first()  # latest published post
     posts = published.exclude(pk=featured_blog.pk) if featured_blog else published
+
+    paginator = Paginator(posts, 9)
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
+
     return render(
         request,
         "posts/blog.html",
         {
-            "posts": posts,
+            "posts": page_obj,
             "featured_blog": featured_blog,
             "total_count": total_count,
         },
