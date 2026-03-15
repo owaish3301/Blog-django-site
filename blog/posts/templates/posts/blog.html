@@ -120,7 +120,7 @@
 
       {% if posts.paginator.num_pages > 1 %}
       <nav aria-label="Blog pagination"
-        class="mt-12 rounded-[2rem] border border-line/40 bg-panel/50 backdrop-blur-sm px-4 py-4 sm:px-6">
+        class="mt-12 rounded-4xl border border-line/40 bg-panel/50 backdrop-blur-sm px-4 py-4 sm:px-6">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div class="font-ibmMono text-xs uppercase tracking-[0.2em] text-muted">
             Page {{ posts.number }} of {{ posts.paginator.num_pages }}
@@ -139,24 +139,21 @@
             </a>
             {% endif %}
 
-            {% for page_number in posts.paginator.page_range %}
-            {% if page_number == posts.number %}
+            {% for page_number in pagination_range %}
+            {% if page_number == pagination_ellipsis %}
+            <span class="inline-flex items-center justify-center px-1 font-ibmMono text-xs text-muted">
+              {{ page_number }}
+            </span>
+            {% elif page_number == posts.number %}
             <span
               class="inline-flex h-10 min-w-10 items-center justify-center rounded-full bg-ink px-4 font-ibmMono text-xs font-bold text-white shadow-md">
               {{ page_number }}
             </span>
-            {% elif page_number >= posts.number|add:"-1" and page_number <= posts.number|add:"1" %}
+            {% else %}
             <a href="?page={{ page_number }}"
               class="inline-flex h-10 min-w-10 items-center justify-center rounded-full border border-line/40 bg-white/70 px-4 font-ibmMono text-xs font-semibold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent">
               {{ page_number }}
             </a>
-            {% elif page_number == 1 or page_number == posts.paginator.num_pages %}
-            <a href="?page={{ page_number }}"
-              class="hidden sm:inline-flex h-10 min-w-10 items-center justify-center rounded-full border border-line/30 bg-panel/70 px-4 font-ibmMono text-xs font-semibold text-muted transition-colors duration-300 hover:border-accent-alt hover:text-accent-alt">
-              {{ page_number }}
-            </a>
-            {% elif page_number == posts.number|add:"-2" or page_number == posts.number|add:"2" %}
-            <span class="hidden sm:inline-flex items-center justify-center px-1 font-ibmMono text-xs text-muted">...</span>
             {% endif %}
             {% endfor %}
 

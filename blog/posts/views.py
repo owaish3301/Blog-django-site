@@ -16,12 +16,17 @@ def get_all_posts(request):
     paginator = Paginator(posts, 9)
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
+    pagination_range = list(
+        paginator.get_elided_page_range(number=page_obj.number)
+    )
 
     return render(
         request,
         "posts/blog.html",
         {
             "posts": page_obj,
+            "pagination_range": pagination_range,
+            "pagination_ellipsis": paginator.ELLIPSIS,
             "featured_blog": featured_blog,
             "total_count": total_count,
         },
