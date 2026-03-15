@@ -7,7 +7,7 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16 relative">
 
-  <div class="lg:col-span-8 flex flex-col gap-16 lg:gap-24">
+  <div class="lg:col-span-8 min-w-0 flex flex-col gap-16 lg:gap-24">
     {# ── FEATURED POST ── #}
     {% if featured_blog and posts.number == 1 %}
     <section>
@@ -84,26 +84,26 @@
       </div>
 
       {% if posts %}
-      <div class="grid gap-6 sm:gap-8 sm:grid-cols-2">
+      <div class="grid min-w-0 grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2">
         {% for post in posts %}
-        <a href="{% url 'post_detail' post.slug %}" class="group block h-full">
+        <a href="{% url 'post_detail' post.slug %}" class="group block h-full min-w-0">
           <article
-            class="bg-panel/50 backdrop-blur-sm rounded-4xl p-6 lg:p-8 border border-line/40 hover:border-accent/40 hover:bg-panel transition-all duration-300 flex flex-col h-full hover:-translate-y-2 hover:shadow-xl relative overflow-hidden">
+            class="relative flex h-full w-full min-w-0 flex-col overflow-hidden rounded-4xl border border-line/40 bg-panel/50 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-accent/40 hover:bg-panel hover:shadow-xl sm:p-6 lg:p-8">
             {% if post.category %}
             <span
               class="font-ibmMono text-[10px] md:text-xs tracking-widest uppercase text-accent-alt mb-5 font-bold">{{ post.category }}</span>
             {% endif %}
 
             <h3
-              class="font-unbounded text-xl md:text-2xl font-semibold mb-4 leading-snug group-hover:text-accent transition-colors duration-300">
+              class="mb-4 min-w-0 break-words font-unbounded text-xl font-semibold leading-snug transition-colors duration-300 group-hover:text-accent md:text-2xl">
               {{ post.title }}
             </h3>
 
             {% if post.description %}
-            <p class="text-muted text-base lg:text-lg mb-8 line-clamp-3 flex-1 font-base leading-relaxed">{{ post.description }}</p>
+            <p class="mb-8 flex-1 break-words font-base text-base leading-relaxed text-muted line-clamp-3 lg:text-lg">{{ post.description }}</p>
             {% endif %}
 
-            <div class="flex items-center justify-between mt-auto pt-5 border-t border-line/30">
+            <div class="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-line/30 pt-5">
               <span class="text-muted text-xs font-ibmMono">{{ post.published_at|date:"M d, Y" }}</span>
               <span
                 class="text-accent text-xs font-ibmMono font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-1">Read
@@ -159,7 +159,7 @@
 
             {% if posts.has_next %}
             <a href="?page={{ posts.next_page_number }}"
-              class="inline-flex items-center gap-2 rounded-full border border-line/40 bg-white/70 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent">
+              class="ml-auto inline-flex items-center gap-2 rounded-full border border-line/40 bg-white/70 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent">
               Next
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
