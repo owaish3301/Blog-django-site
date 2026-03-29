@@ -19,18 +19,14 @@
   <div class="inset-0 z-0 fixed pointer-events-none opacity-15 page-grain bg-size-[4px_4px]"></div>
   <div class="z-10 relative my-4 mx-auto px-4">
     <header
-      class="bg-soft/80 backdrop-blur-xl border border-line/40 px-3 py-3 md:py-3 rounded-4xl md:rounded-full grid gap-2 grid-cols-6 items-center shadow-sm sticky top-4 z-50 transition-all duration-500 hover:shadow-lg hover:bg-soft/95 hover:border-line/60 mx-auto max-w-350">
-      <a href="{% url 'get_all_posts' %}" class="inline-flex items-center gap-3 col-span-5 md:col-span-2 group md:pl-2">
+      class="bg-soft/80 backdrop-blur-xl border border-line/40 px-3 py-3 md:py-3 rounded-4xl md:rounded-full grid gap-2 grid-cols-6 items-center shadow-sm sticky top-4 z-50 mx-auto max-w-350">
+      <a href="{% url 'get_all_posts' %}" class="inline-flex items-center gap-3 col-span-5 md:col-span-2 md:pl-2">
         <div
-          class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-line/30 group-hover:border-accent group-hover:shadow-md transition-all duration-300 overflow-hidden relative">
-          <div
-            class="absolute inset-0 bg-accent/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-          </div>
+          class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-line/30 overflow-hidden relative">
           <img src="{% static 'assets/blogger.png' %}" alt="owaish-codes logo"
-            class="w-6 h-6 object-contain relative z-10 group-hover:scale-110 transition-transform duration-300" />
+            class="w-6 h-6 object-contain relative z-10" />
         </div>
-        <p
-          class="uppercase font-ibmMono font-bold tracking-widest text-sm text-ink group-hover:text-accent transition-colors duration-300">
+        <p class="uppercase font-ibmMono font-bold tracking-widest text-sm text-ink">
           Owaish Codes</p>
       </a>
       <button

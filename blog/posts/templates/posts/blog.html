@@ -17,20 +17,7 @@
       </div>
       <a href="{% url 'post_detail' featured_blog.slug %}" class="block group">
         <article
-          class="relative p-6 sm:p-8 md:p-12 rounded-[2.5rem] overflow-hidden border border-line/50 transition-[transform,box-shadow] duration-500 hover:shadow-2xl hover:-translate-y-2 bg-linear-to-br from-panel/90 to-bg/90 backdrop-blur-md featured-post-custom xl:min-h-100 flex flex-col justify-center">
-
-          <!-- Decorative element -->
-          <div
-            class="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div
-              class="w-16 h-16 rounded-full bg-accent text-white flex items-center justify-center -rotate-45 group-hover:rotate-0 transition-transform duration-500 shadow-xl">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 7h10v10" />
-                <path d="M7 17 17 7" />
-              </svg>
-            </div>
-          </div>
+          class="relative p-6 sm:p-8 md:p-12 rounded-[2.5rem] overflow-hidden border border-line/50 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:shadow-xl bg-linear-to-br from-panel/90 to-bg/90 backdrop-blur-md featured-post-custom xl:min-h-100 flex flex-col justify-center">
 
           <div class="flex flex-col h-full z-10 relative">
             {% if featured_blog.category %}
@@ -88,19 +75,19 @@
         {% for post in posts %}
         <a href="{% url 'post_detail' post.slug %}" class="group block h-full min-w-0">
           <article
-            class="relative flex h-full w-full min-w-0 flex-col overflow-hidden rounded-4xl border border-line/40 bg-panel/50 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-accent/40 hover:bg-panel hover:shadow-xl sm:p-6 lg:p-8">
+            class="relative flex h-full w-full min-w-0 flex-col overflow-hidden rounded-4xl border border-line/40 bg-panel/50 p-5 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:border-accent/40 hover:bg-white hover:shadow-xl sm:p-6 lg:p-8">
             {% if post.category %}
             <span
               class="font-ibmMono text-[10px] md:text-xs tracking-widest uppercase text-accent-alt mb-5 font-bold">{{ post.category }}</span>
             {% endif %}
 
             <h3
-              class="mb-4 min-w-0 break-words font-unbounded text-xl font-semibold leading-snug transition-colors duration-300 group-hover:text-accent md:text-2xl">
+              class="mb-4 min-w-0 wrap-break-word font-unbounded text-xl font-semibold leading-snug transition-colors duration-300 group-hover:text-accent md:text-2xl">
               {{ post.title }}
             </h3>
 
             {% if post.description %}
-            <p class="mb-8 flex-1 break-words font-base text-base leading-relaxed text-muted line-clamp-3 lg:text-lg">{{ post.description }}</p>
+            <p class="mb-8 flex-1 wrap-break-word font-base text-base leading-relaxed text-muted line-clamp-3 lg:text-lg">{{ post.description }}</p>
             {% endif %}
 
             <div class="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-line/30 pt-5">
@@ -129,7 +116,7 @@
           <div class="flex flex-wrap items-center gap-2">
             {% if posts.has_previous %}
             <a href="?page={{ posts.previous_page_number }}"
-              class="inline-flex items-center gap-2 rounded-full border border-line/40 bg-white/70 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent">
+              class="inline-flex items-center gap-2 rounded-full border border-line/40 bg-white/70 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] hover:border-accent hover:text-accent">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 12H5" />
@@ -151,7 +138,7 @@
             </span>
             {% else %}
             <a href="?page={{ page_number }}"
-              class="inline-flex h-10 min-w-10 items-center justify-center rounded-full border border-line/40 bg-white/70 px-4 font-ibmMono text-xs font-semibold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent">
+              class="inline-flex h-10 min-w-10 items-center justify-center rounded-full border border-line/40 bg-white/70 px-4 font-ibmMono text-xs font-semibold text-ink transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] hover:border-accent hover:text-accent">
               {{ page_number }}
             </a>
             {% endif %}
@@ -159,7 +146,7 @@
 
             {% if posts.has_next %}
             <a href="?page={{ posts.next_page_number }}"
-              class="ml-auto inline-flex items-center gap-2 rounded-full border border-line/40 bg-white/70 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent">
+              class="ml-auto inline-flex items-center gap-2 rounded-full border border-line/40 bg-white/70 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] hover:border-accent hover:text-accent">
               Next
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
