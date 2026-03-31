@@ -3,12 +3,94 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from django.utils import timezone
 from .forms import SubscriptionForm
+from django.core.mail import send_mail
 
-# Create your views here.
 def get_all_posts(request):
     if request.method == "POST":
         form = SubscriptionForm(request.POST)
         if form.is_valid():
+            formData = form.cleaned_data
+             # TODO:Fault tolerance and monitoring
+            send_mail("Welcome to Owaish Codes",
+                 "You're now subscribed to Owaish Codes.\n\n" "Whenever I publish something new, it'll land in your inbox. No spam. Just signal.\n\n" "— Owaish",
+                  None, [formData["email"]],
+                  fail_silently=True,
+                  html_message="""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to Owaish Codes</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f9f9f7;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f9f9f7;padding:48px 16px;">
+    <tr>
+      <td align="center">
+        <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#ffffff;border-radius:24px;border:1px solid #e5e5e0;overflow:hidden;">
+
+          <!-- Header -->
+          <tr>
+            <td style="background-color:#0f0f0e;padding:36px 40px;">
+              <p style="margin:0;font-family:monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#888;">Owaish Codes</p>
+              <h1 style="margin:12px 0 0;font-size:26px;font-weight:700;color:#ffffff;line-height:1.3;">You're in the loop.</h1>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:40px;">
+              <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#4a4a45;">
+                Hey — thanks for subscribing.
+              </p>
+              <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#4a4a45;">
+                Whenever I publish something new — a deep dive, a build log, or a brain dump — it'll land quietly in your inbox.
+              </p>
+              <p style="margin:0 0 32px;font-size:16px;line-height:1.7;color:#4a4a45;">
+                No noise. No spam. Just signal.
+              </p>
+
+              <!-- CTA -->
+              <table cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="border-radius:100px;background-color:#0f0f0e;">
+                    <a href="https://blog.owaish.codes" style="display:inline-block;padding:14px 28px;font-family:monospace;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:#ffffff;text-decoration:none;font-weight:700;">
+                      Read the blog →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td style="padding:0 40px;">
+              <div style="height:1px;background-color:#e5e5e0;"></div>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:28px 40px;">
+              <p style="margin:0;font-size:13px;color:#999;line-height:1.6;font-style:italic;">
+                — Owaish
+              </p>
+              <p style="margin:12px 0 0;font-size:11px;color:#bbb;font-family:monospace;">
+                You're receiving this because you subscribed at blog.owaish.codes
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+    """,
+)
+            
             response = redirect("/blog/?subscribed=1")
             response.set_cookie("subscribed", "1", max_age=60*60*24*365)
             return response
