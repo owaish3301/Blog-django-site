@@ -1,7 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════════
-   blog_detail.js
-   Handles: Highlight.js, copy buttons, TOC sidebar, reading progress
-   ═══════════════════════════════════════════════════════════════════ */
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -145,6 +141,97 @@ document.addEventListener("DOMContentLoaded", () => {
 
         window.addEventListener("scroll", update, { passive: true });
         update(); // initialise on load
+    }
+
+    /* ── 5. Share Buttons ───────────────────────────────────────────── */
+    const shareBtns = [document.getElementById("share-btn"), document.getElementById("share-btn-footer")];
+    
+    function fallbackCopyTextToClipboard(text) {
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+        } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+        }
+        document.body.removeChild(textArea);
+    }
+
+    function copyTextToClipboard(text) {
+        if (!navigator.clipboard) {
+            fallbackCopyTextToClipboard(text);
+            return Promise.resolve();
+        }
+        return navigator.clipboard.writeText(text);
+    }
+
+    const shareModal = document.getElementById("share-modal");
+    const shareModalContent = document.getElementById("share-modal-content");
+    const closeShareModal = document.getElementById("close-share-modal");
+    const shareModalUrlInput = document.getElementById("share-modal-url-input");
+    const shareModalCopyLink = document.getElementById("share-modal-copy-link");
+    
+    if (shareModal) {
+        const currentUrl = encodeURIComponent(window.location.href);
+        const currentTitle = encodeURIComponent(document.title);
+        
+        document.getElementById("share-x").href = `https://twitter.com/intent/tweet?url=${currentUrl}&text=${currentTitle}`;
+        document.getElementById("share-linkedin").href = `https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`;
+        document.getElementById("share-whatsapp").href = `https://api.whatsapp.com/send?text=${currentTitle}%20${currentUrl}`;
+        document.getElementById("share-reddit").href = `https://reddit.com/submit?url=${currentUrl}&title=${currentTitle}`;
+        
+        shareModalUrlInput.value = window.location.href;
+        
+        const openModal = () => {
+            shareModal.classList.remove("opacity-0", "pointer-events-none");
+            shareModal.classList.add("opacity-100", "pointer-events-auto");
+            shareModalContent.classList.remove("translate-y-8");
+            shareModalContent.classList.add("translate-y-0");
+        };
+        
+        const closeModal = () => {
+            shareModal.classList.add("opacity-0", "pointer-events-none");
+            shareModal.classList.remove("opacity-100", "pointer-events-auto");
+            shareModalContent.classList.add("translate-y-8");
+            shareModalContent.classList.remove("translate-y-0");
+        };
+        
+        closeShareModal.addEventListener("click", closeModal);
+        shareModal.addEventListener("click", (e) => {
+            if (e.target === shareModal) closeModal();
+        });
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closeModal();
+        });
+        
+        shareBtns.forEach(btn => {
+            if (!btn) return;
+            btn.addEventListener("click", openModal);
+        });
+        
+        shareModalCopyLink.addEventListener("click", () => {
+            const indicateSuccess = () => {
+                shareModalCopyLink.textContent = "Copied!";
+                setTimeout(() => {
+                    shareModalCopyLink.textContent = "Copy";
+                }, 2000);
+            };
+            
+            copyTextToClipboard(window.location.href).then(indicateSuccess).catch(() => {
+                fallbackCopyTextToClipboard(window.location.href);
+                indicateSuccess();
+            });
+        });
+        
+        shareModalUrlInput.addEventListener("click", () => {
+             shareModalUrlInput.select();
+        });
     }
 
 });
