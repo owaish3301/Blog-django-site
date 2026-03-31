@@ -1,44 +1,60 @@
-{% extends "base.html" %}
-{% load static %}
-
-{% block title %}Shadow Codes | Blog{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block title %}Shadow Codes |
+Blog{% endblock %} {% block content %}
 
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16 relative">
-
   <div class="lg:col-span-8 min-w-0 flex flex-col gap-16 lg:gap-24">
-    {# ── FEATURED POST ── #}
-    {% if featured_blog and posts.number == 1 %}
+    {# ── FEATURED POST ── #} {% if featured_blog and posts.number == 1 %}
     <section>
       <div class="flex items-center gap-4 mb-8">
-        <h2 class="font-ibmMono text-sm tracking-widest uppercase text-accent-alt font-semibold">Featured Article</h2>
+        <h2
+          class="font-ibmMono text-sm tracking-widest uppercase text-accent-alt font-semibold"
+        >
+          Featured Article
+        </h2>
         <div class="h-px flex-1 bg-line/40"></div>
       </div>
       <a href="{% url 'post_detail' featured_blog.slug %}" class="block group">
         <article
-          class="relative p-6 sm:p-8 md:p-12 rounded-[2.5rem] overflow-hidden border border-line/50 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:shadow-xl bg-linear-to-br from-panel/90 to-bg/90 backdrop-blur-md featured-post-custom xl:min-h-100 flex flex-col justify-center">
-
+          class="relative p-6 sm:p-8 md:p-12 rounded-[2.5rem] overflow-hidden border border-line/50 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:shadow-xl bg-linear-to-br from-panel/90 to-bg/90 backdrop-blur-md featured-post-custom xl:min-h-100 flex flex-col justify-center"
+        >
           <div class="flex flex-col h-full z-10 relative">
             {% if featured_blog.category %}
             <span
-              class="font-ibmMono text-xs tracking-widest uppercase text-white bg-accent-alt px-4 py-2 rounded-full self-start mb-6 lg:mb-8 shadow-sm">
-              {{ featured_blog.category }}</span>
+              class="font-ibmMono text-xs tracking-widest uppercase text-white bg-accent-alt px-4 py-2 rounded-full self-start mb-6 lg:mb-8 shadow-sm"
+            >
+              {{ featured_blog.category }}</span
+            >
             {% endif %}
 
-            <h3 class="font-unbounded text-3xl md:text-5xl lg:text-5xl xl:text-6xl font-semibold mb-6 leading-tight">
+            <h3
+              class="font-unbounded text-3xl md:text-5xl lg:text-5xl xl:text-6xl font-semibold mb-6 leading-tight"
+            >
               {{ featured_blog.title }}
             </h3>
 
             {% if featured_blog.description %}
-            <p class="text-xl text-muted leading-relaxed mb-10 max-w-3xl font-base italic">{{ featured_blog.description }}</p>
+            <p
+              class="text-xl text-muted leading-relaxed mb-10 max-w-3xl font-base italic"
+            >
+              {{ featured_blog.description }}
+            </p>
             {% endif %}
 
             <div
-              class="mt-auto flex flex-wrap items-center gap-4 md:gap-8 pt-6 border-t border-line/30 font-ibmMono text-sm">
+              class="mt-auto flex flex-wrap items-center gap-4 md:gap-8 pt-6 border-t border-line/30 font-ibmMono text-sm"
+            >
               <div class="flex items-center gap-2 text-ink">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round" class="text-accent">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-accent"
+                >
                   <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
                   <line x1="16" x2="16" y1="2" y2="6" />
                   <line x1="8" x2="8" y1="2" y2="6" />
@@ -47,8 +63,17 @@
                 <span>{{ featured_blog.published_at|date:"M d, Y" }}</span>
               </div>
               <div class="flex items-center gap-2 text-ink">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round" class="text-accent-alt">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-accent-alt"
+                >
                   <circle cx="12" cy="12" r="10" />
                   <polyline points="12 6 12 12 16 14" />
                 </svg>
@@ -59,46 +84,73 @@
         </article>
       </a>
     </section>
-    {% endif %}
-
-    {# ── ALL POSTS LISTING ── #}
+    {% endif %} {# ── ALL POSTS LISTING ── #}
     <section>
       <div class="flex items-center gap-4 mb-8">
-        <h2 class="font-ibmMono text-sm tracking-widest uppercase text-muted font-semibold">
-          {% if featured_blog and posts.number == 1 %}More Editorials{% else %}Latest Posts{% endif %}
+        <h2
+          class="font-ibmMono text-sm tracking-widest uppercase text-muted font-semibold"
+        >
+          {% if featured_blog and posts.number == 1 %}More Editorials{% else
+          %}Latest Posts{% endif %}
         </h2>
         <div class="h-px flex-1 bg-line/40"></div>
       </div>
 
       {% if posts %}
-      <div class="grid min-w-0 grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2">
+      <div
+        class="grid min-w-0 grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2"
+      >
         {% for post in posts %}
-        <a href="{% url 'post_detail' post.slug %}" class="group block h-full min-w-0">
+        <a
+          href="{% url 'post_detail' post.slug %}"
+          class="group block h-full min-w-0"
+        >
           <article
-            class="relative flex h-full w-full min-w-0 flex-col overflow-hidden rounded-4xl border border-line/40 bg-panel/50 p-5 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:border-accent/40 hover:bg-white hover:shadow-xl sm:p-6 lg:p-8">
+            class="relative flex h-full w-full min-w-0 flex-col overflow-hidden rounded-4xl border border-line/40 bg-panel/50 p-5 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:border-accent/40 hover:bg-white hover:shadow-xl sm:p-6 lg:p-8"
+          >
             {% if post.category %}
             <span
-              class="font-ibmMono text-[10px] md:text-xs tracking-widest uppercase text-accent-alt mb-5 font-bold">{{ post.category }}</span>
+              class="font-ibmMono text-[10px] md:text-xs tracking-widest uppercase text-accent-alt mb-5 font-bold"
+              >{{ post.category }}</span
+            >
             {% endif %}
 
             <h3
-              class="mb-4 min-w-0 wrap-break-word font-unbounded text-xl font-semibold leading-snug transition-colors duration-300 group-hover:text-accent md:text-2xl">
+              class="mb-4 min-w-0 wrap-break-word font-unbounded text-xl font-semibold leading-snug transition-colors duration-300 group-hover:text-accent md:text-2xl"
+            >
               {{ post.title }}
             </h3>
 
             {% if post.description %}
-            <p class="mb-8 flex-1 wrap-break-word font-base text-base leading-relaxed text-muted line-clamp-3 lg:text-lg">{{ post.description }}</p>
+            <p
+              class="mb-8 flex-1 wrap-break-word font-base text-base leading-relaxed text-muted line-clamp-3 lg:text-lg"
+            >
+              {{ post.description }}
+            </p>
             {% endif %}
 
-            <div class="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-line/30 pt-5">
-              <span class="text-muted text-xs font-ibmMono">{{ post.published_at|date:"M d, Y" }}</span>
+            <div
+              class="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-line/30 pt-5"
+            >
+              <span class="text-muted text-xs font-ibmMono"
+                >{{ post.published_at|date:"M d, Y" }}</span
+              >
               <span
-                class="text-accent text-xs font-ibmMono font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-1">Read
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
+                class="text-accent text-xs font-ibmMono font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-1"
+                >Read
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg></span>
+                  <path d="m12 5 7 7-7 7" /></svg
+              ></span>
             </div>
           </article>
         </a>
@@ -106,50 +158,77 @@
       </div>
 
       {% if posts.paginator.num_pages > 1 %}
-      <nav aria-label="Blog pagination"
-        class="mt-12 rounded-4xl border border-line/40 bg-panel/50 backdrop-blur-sm px-4 py-4 sm:px-6">
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div class="font-ibmMono text-xs uppercase tracking-[0.2em] text-muted">
+      <nav
+        aria-label="Blog pagination"
+        class="mt-12 rounded-4xl border border-line/40 bg-panel/50 backdrop-blur-sm px-4 py-4 sm:px-6"
+      >
+        <div
+          class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div
+            class="font-ibmMono text-xs uppercase tracking-[0.2em] text-muted"
+          >
             Page {{ posts.number }} of {{ posts.paginator.num_pages }}
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
             {% if posts.has_previous %}
-            <a href="?page={{ posts.previous_page_number }}"
-              class="inline-flex items-center gap-2 rounded-full border border-line/40 bg-white/70 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] hover:border-accent hover:text-accent">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
+            <a
+              href="?page={{ posts.previous_page_number }}"
+              class="inline-flex items-center gap-2 rounded-full border border-line/40 bg-white/70 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] hover:border-accent hover:text-accent"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <path d="M19 12H5" />
                 <path d="m12 19-7-7 7-7" />
               </svg>
               Previous
             </a>
             {% endif %}
-
             {% for page_number in pagination_range %}
             {% if page_number == pagination_ellipsis %}
-            <span class="inline-flex items-center justify-center px-1 font-ibmMono text-xs text-muted">
+            <span
+              class="inline-flex items-center justify-center px-1 font-ibmMono text-xs text-muted"
+            >
               {{ page_number }}
             </span>
             {% elif page_number == posts.number %}
             <span
-              class="inline-flex h-10 min-w-10 items-center justify-center rounded-full bg-ink px-4 font-ibmMono text-xs font-bold text-white shadow-md">
+              class="inline-flex h-10 min-w-10 items-center justify-center rounded-full bg-ink px-4 font-ibmMono text-xs font-bold text-white shadow-md"
+            >
               {{ page_number }}
             </span>
             {% else %}
-            <a href="?page={{ page_number }}"
-              class="inline-flex h-10 min-w-10 items-center justify-center rounded-full border border-line/40 bg-white/70 px-4 font-ibmMono text-xs font-semibold text-ink transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] hover:border-accent hover:text-accent">
+            <a
+              href="?page={{ page_number }}"
+              class="inline-flex h-10 min-w-10 items-center justify-center rounded-full border border-line/40 bg-white/70 px-4 font-ibmMono text-xs font-semibold text-ink transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] hover:border-accent hover:text-accent"
+            >
               {{ page_number }}
             </a>
-            {% endif %}
-            {% endfor %}
-
-            {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}"
-              class="ml-auto inline-flex items-center gap-2 rounded-full border border-line/40 bg-white/70 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] hover:border-accent hover:text-accent">
+            {% endif %} {% endfor %} {% if posts.has_next %}
+            <a
+              href="?page={{ posts.next_page_number }}"
+              class="ml-auto inline-flex items-center gap-2 rounded-full border border-line/40 bg-white/70 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] hover:border-accent hover:text-accent"
+            >
               Next
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
@@ -160,28 +239,58 @@
       </nav>
       {% endif %}
       {% else %}
-      {# ── EMPTY STATE ── #}
       <div
-        class="bg-panel/80 backdrop-blur-md border border-line/50 rounded-[2.5rem] p-12 text-center relative overflow-hidden shadow-sm">
-        <div class="absolute inset-0 bg-linear-to-br from-transparent to-accent/5 pointer-events-none"></div>
+        class="bg-panel/80 backdrop-blur-md border border-line/50 rounded-[2.5rem] p-12 text-center relative overflow-hidden shadow-sm"
+      >
         <div
-          class="mx-auto mb-6 w-20 h-20 rounded-full bg-soft border border-line/80 flex items-center justify-center text-muted relative z-10 shadow-inner">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+          class="absolute inset-0 bg-linear-to-br from-transparent to-accent/5 pointer-events-none"
+        ></div>
+        <div
+          class="mx-auto mb-6 w-20 h-20 rounded-full bg-soft border border-line/80 flex items-center justify-center text-muted relative z-10 shadow-inner"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+            />
             <path d="M14 2v4a2 2 0 0 0 2 2h4" />
           </svg>
         </div>
-        <h3 class="font-unbounded text-3xl font-medium mb-4 relative z-10 text-ink">No posts yet</h3>
-        <p class="text-muted text-lg mb-10 max-w-md mx-auto relative z-10 font-base italic">
-          Great thoughts take time to articulate. I'm currently brewing some ideas. Check back soon or subscribe to get
-          notified.
+        <h3
+          class="font-unbounded text-3xl font-medium mb-4 relative z-10 text-ink"
+        >
+          No posts yet
+        </h3>
+        <p
+          class="text-muted text-lg mb-10 max-w-md mx-auto relative z-10 font-base italic"
+        >
+          Great thoughts take time to articulate. I'm currently brewing some
+          ideas. Check back soon or subscribe to get notified.
         </p>
-        <a href="#subscribe"
-          class="hero-btn relative z-10 inline-flex items-center gap-2 text-white rounded-full font-ibmMono uppercase px-8 py-4 tracking-widest text-sm transition-all hover:scale-[1.03] active:scale-[0.98]">
+        <a
+          href="#subscribe"
+          class="hero-btn relative z-10 inline-flex items-center gap-2 text-white rounded-full font-ibmMono uppercase px-8 py-4 tracking-widest text-sm transition-all hover:scale-[1.03] active:scale-[0.98]"
+        >
           <span>Get notified</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
             <path d="m22 2-7 20-4-9-9-4Z" />
             <path d="M22 2 11 13" />
           </svg>
@@ -196,61 +305,135 @@
 
     <div class="sticky top-6 flex flex-col gap-8">
       {# newsletter #}
-      <section id="subscribe"
-        class="subscribe-card relative rounded-[2.5rem] p-8 lg:p-10 overflow-hidden border border-line/40 shadow-xl group">
-        <!-- Abstract shape backgrounds -->
+      <section
+        id="subscribe"
+        class="subscribe-card relative rounded-[2.5rem] p-8 lg:p-10 overflow-hidden border border-line/40 shadow-xl group"
+      >
+        <!-- Abstract background blobs (unchanged) -->
         <div
-          class="absolute -right-16 -top-16 w-48 h-48 bg-accent/20 rounded-full blur-3xl transition-transform duration-700 group-hover:scale-150 group-hover:bg-accent/30 pointer-events-none">
-        </div>
+          class="absolute -right-16 -top-16 w-48 h-48 bg-accent/20 rounded-full blur-3xl transition-transform duration-700 group-hover:scale-150 group-hover:bg-accent/30 pointer-events-none"
+        ></div>
         <div
-          class="absolute -left-16 -bottom-16 w-48 h-48 bg-accent-alt/20 rounded-full blur-3xl transition-transform duration-700 group-hover:scale-150 group-hover:bg-accent-alt/30 pointer-events-none">
-        </div>
+          class="absolute -left-16 -bottom-16 w-48 h-48 bg-accent-alt/20 rounded-full blur-3xl transition-transform duration-700 group-hover:scale-150 group-hover:bg-accent-alt/30 pointer-events-none"
+        ></div>
 
         <div class="relative z-10">
+          {% if request.GET.subscribed == "1" %}
+
+          <div class="flex flex-col gap-6">
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-2xl bg-accent/15 flex items-center justify-center backdrop-blur-sm">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" class="text-accent">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+              </div>
+
+              <span
+                class="font-ibmMono text-xs tracking-widest uppercase text-accent font-semibold">
+                Subscribed
+              </span>
+            </div>
+
+            <h2
+              class="text-3xl font-unbounded font-semibold text-ink leading-tight">
+              You’re in the loop
+            </h2>
+
+            <p class="text-muted font-base text-lg italic leading-relaxed">
+              New thoughts, guides, and experiments will now land quietly in your inbox.
+            </p>
+
+            <p class="text-muted/70 text-sm font-base italic">
+              No spam. Just signal.
+            </p>
+          </div>
+
+          {% else %}
+
           <div
-            class="w-12 h-12 bg-white/50 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 shadow-sm border border-white/20">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" class="text-accent-deep">
+            class="w-12 h-12 bg-white/50 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 shadow-sm border border-white/20"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-accent-deep"
+            >
               <rect width="20" height="16" x="2" y="4" rx="2" />
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
             </svg>
           </div>
 
-          <h2 class="text-3xl lg:text-3xl font-unbounded font-semibold mb-4 text-ink leading-tight">
+          <h2
+            class="text-3xl lg:text-3xl font-unbounded font-semibold mb-4 text-ink leading-tight"
+          >
             Stay in the loop
           </h2>
+
           <p class="text-muted font-base text-lg italic mb-8">
-            Get all my new thoughts, guides, & brain dumps directly in your inbox. No spam.
+            Get all my new thoughts, guides, & brain dumps directly in your
+            inbox. No spam.
           </p>
 
-          <form action="" class="flex flex-col gap-4">
+          <form method="POST" class="flex flex-col gap-4">
             <label for="email-address" class="sr-only">Email address</label>
-            <div class="relative font-ibmMono">
-              <input id="email-address" name="email-address" type="email" placeholder="you@domain.com" required
-                class="w-full bg-panel/80 backdrop-blur-sm border border-line/60 rounded-full px-6 py-4 text-sm text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all shadow-inner placeholder:text-muted/60" />
-            </div>
-            <button id="subscribe-btn"
-              class="w-full relative overflow-hidden rounded-full font-ibmMono text-sm tracking-widest uppercase text-white hover:cursor-pointer bg-ink group/btn py-4 flex items-center justify-center gap-2 transition-all hover:bg-accent-deep shadow-[0_8px_20px_rgba(23,20,16,0.2)] hover:shadow-[0_12px_24px_rgba(159,52,27,0.3)]">
+            <div class="relative font-ibmMono">{% csrf_token %} {{ form }}</div>
+
+            <button
+              id="subscribe-btn"
+              type="submit"
+              class="w-full relative overflow-hidden rounded-full font-ibmMono text-sm tracking-widest uppercase text-white hover:cursor-pointer bg-ink group/btn py-4 flex items-center justify-center gap-2 transition-all hover:bg-accent-deep shadow-[0_8px_20px_rgba(23,20,16,0.2)] hover:shadow-[0_12px_24px_rgba(159,52,27,0.3)]"
+            >
               <span class="relative z-10 font-bold">Subscribe</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round"
-                class="relative z-10 transition-transform group-hover/btn:translate-x-1">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="relative z-10 transition-transform group-hover/btn:translate-x-1"
+              >
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
             </button>
           </form>
+
+          {% endif %}
         </div>
       </section>
 
       {# Decor / About block (optional feeling) #}
       <div
-        class="rounded-[2.5rem] bg-panel/30 border border-line/30 p-8 backdrop-blur-sm group hover:border-accent-alt/30 transition-colors">
-        <h3 class="font-ibmMono text-sm tracking-widest uppercase text-ink font-semibold mb-5 flex items-center gap-3">
+        class="rounded-[2.5rem] bg-panel/30 border border-line/30 p-8 backdrop-blur-sm group hover:border-accent-alt/30 transition-colors"
+      >
+        <h3
+          class="font-ibmMono text-sm tracking-widest uppercase text-ink font-semibold mb-5 flex items-center gap-3"
+        >
           <div
-            class="w-8 h-8 rounded-full bg-accent-alt/10 flex items-center justify-center text-accent-alt group-hover:scale-110 transition-transform">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
+            class="w-8 h-8 rounded-full bg-accent-alt/10 flex items-center justify-center text-accent-alt group-hover:scale-110 transition-transform"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <circle cx="12" cy="12" r="10" />
               <path d="M12 16v-4" />
               <path d="M12 8h.01" />
@@ -259,17 +442,15 @@
           Context
         </h3>
         <p class="font-base text-muted leading-relaxed italic text-lg">
-          I'm Owaish, a developer passionately building out concepts and sharing knowledge along the way. These posts
-          reflect my journey in mastering clean code and beautiful design.
+          I'm Owaish, a developer passionately building out concepts and sharing
+          knowledge along the way. These posts reflect my journey in mastering
+          clean code and beautiful design.
         </p>
       </div>
-
     </div>
   </div>
 </div>
 
-{% endblock %}
-
-{% block scripts %}
+{% endblock %} {% block scripts %}
 <script type="module" src="{% static 'scripts/navBarExpand.js' %}"></script>
 {% endblock %}

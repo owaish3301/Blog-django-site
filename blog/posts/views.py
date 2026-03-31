@@ -1,11 +1,20 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from django.utils import timezone
-
+from .forms import SubscriptionForm
 
 # Create your views here.
 def get_all_posts(request):
+    if request.method == "POST":
+        form = SubscriptionForm(request.POST)
+        if form.is_valid():
+            redirect("/blog/?subscribed=1")
+        else:
+            redirect("/blog/?subscribed=error")
+    else:
+        form = SubscriptionForm()
+
     published = Post.objects.filter(
         status=Post.Status.PUBLISHED, published_at__lte=timezone.now()
     )
@@ -29,6 +38,7 @@ def get_all_posts(request):
             "pagination_ellipsis": paginator.ELLIPSIS,
             "featured_blog": featured_blog,
             "total_count": total_count,
+            "form" : form
         },
     )
 
