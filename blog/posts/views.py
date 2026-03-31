@@ -9,9 +9,9 @@ def get_all_posts(request):
     if request.method == "POST":
         form = SubscriptionForm(request.POST)
         if form.is_valid():
-            redirect("/blog/?subscribed=1")
-        else:
-            redirect("/blog/?subscribed=error")
+            response = redirect("/blog/?subscribed=1")
+            response.set_cookie("subscribed", "1", max_age=60*60*24*365)
+            return response
     else:
         form = SubscriptionForm()
 
