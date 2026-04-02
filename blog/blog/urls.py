@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path("", HomeViews.landing_page, name="landing_page"),
-    path('blog/', include('posts.urls'))
+    path('blog/', include('posts.urls')),
+    path('comments/', include('comments.urls')),
 ]

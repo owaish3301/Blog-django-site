@@ -129,4 +129,40 @@ def get_post_detail(request, slug):
     blog = get_object_or_404(
         Post, slug=slug, status=Post.Status.PUBLISHED, published_at__lte=timezone.now()
     )
-    return render(request, "posts/blog_detail.html", {"blog": blog})
+
+    # Initial comments (first page)
+    from comments.models import Comment, VerifiedCommenter
+
+    comments_qs = Comment.objects.filter(
+        post=blog, is_approved=True
+    ).select_related("commenter").order_by("-created_at")
+
+    total_comments = comments_qs.count()
+    initial_comments = comments_qs[:5]
+    has_more_comments = total_comments > 5
+
+    # Check if visitor is verified via cookie
+    commenter_name = None
+    commenter_email = None
+    is_verified = False
+    token = request.COOKIES.get("commenter_token")
+    if token:
+        try:
+            commenter = VerifiedCommenter.objects.get(token=token)
+            if not commenter.is_expired:
+                is_verified = True
+                commenter_name = commenter.name
+                commenter_email = commenter.email
+        except VerifiedCommenter.DoesNotExist:
+            pass
+
+    return render(request, "posts/blog_detail.html", {
+        "blog": blog,
+        "comments": initial_comments,
+        "total_comments": total_comments,
+        "has_more_comments": has_more_comments,
+        "is_verified": is_verified,
+        "commenter_name": commenter_name,
+        "commenter_email": commenter_email,
+    })
+

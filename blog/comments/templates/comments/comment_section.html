@@ -1,0 +1,157 @@
+{% load static %}
+
+<!-- ═══════ Comments Section ═══════ -->
+<section id="comments-section">
+    <div class="rounded-4xl bg-panel/50 border border-line/40 p-5 backdrop-blur-sm">
+
+        <!-- Header -->
+        <div class="flex items-center gap-2 mb-5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="text-muted">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            <h2 class="font-ibmMono text-xs tracking-widest uppercase text-muted font-semibold">
+                Comments
+                <span id="comment-count" class="text-accent font-bold">({{ total_comments }})</span>
+            </h2>
+        </div>
+
+        <!-- ── Verification / Comment Form ── -->
+        <div id="comment-form-area" class="mb-5">
+
+            <!-- State 1: Not verified — show verify prompt -->
+            <div id="verify-prompt" class="{% if is_verified %}hidden{% endif %}">
+                <div id="email-form" class="flex flex-col gap-3">
+                    <p class="text-sm text-muted font-ibmMono leading-snug">
+                        Verify your email to join the conversation
+                    </p>
+                    <input type="text" id="commenter-name" placeholder="Your name"
+                        class="w-full bg-soft border border-line/50 rounded-xl px-3 py-2 text-sm text-ink font-ibmMono placeholder:text-muted/50 outline-none focus:border-accent transition-colors" />
+                    <input type="email" id="commenter-email" placeholder="Email address"
+                        class="w-full bg-soft border border-line/50 rounded-xl px-3 py-2 text-sm text-ink font-ibmMono placeholder:text-muted/50 outline-none focus:border-accent transition-colors" />
+                    <button id="send-otp-btn"
+                        class="inline-flex items-center gap-2 hero-btn text-white rounded-full font-ibmMono uppercase px-4 py-2 tracking-widest text-xs font-bold transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                        style="align-self: flex-start;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 2 11 13" />
+                            <path d="m22 2-7 20-4-9-9-4z" />
+                        </svg>
+                        Send Code
+                    </button>
+                    <p id="otp-send-error" class="text-xs text-red-500 font-ibmMono hidden"></p>
+                </div>
+
+                <!-- OTP input (hidden until OTP is sent) -->
+                <div id="otp-verify-form" class="hidden flex flex-col gap-3 mt-4">
+                    <p class="text-sm text-muted font-ibmMono leading-snug">
+                        Enter the 6-digit code sent to your email
+                    </p>
+                    <div class="flex gap-2">
+                        <input type="text" id="otp-input" maxlength="6" placeholder="000000"
+                            class="bg-soft border border-line/50 rounded-xl px-3 py-2 text-sm text-ink font-ibmMono text-center placeholder:text-muted/50 outline-none focus:border-accent transition-colors"
+                            style="width: 7rem; letter-spacing: 0.2em;" />
+                        <button id="verify-otp-btn"
+                            class="inline-flex items-center gap-2 bg-ink text-white rounded-full font-ibmMono uppercase px-4 py-2 tracking-widest text-xs font-bold transition-all hover:bg-accent-deep hover:scale-[1.02] active:scale-[0.98] cursor-pointer">
+                            Verify
+                        </button>
+                    </div>
+                    <p id="otp-verify-error" class="text-xs text-red-500 font-ibmMono hidden"></p>
+                </div>
+            </div>
+
+            <!-- State 2: Verified — show comment box -->
+            <div id="comment-box" class="{% if not is_verified %}hidden{% endif %}">
+                <div class="flex items-center gap-2 mb-3 flex-wrap">
+                    <div class="rounded-full flex items-center justify-center border"
+                        style="width: 24px; height: 24px; background: rgba(207,77,45,0.12); border-color: rgba(207,77,45,0.2);">
+                        <span id="commenter-initial" class="font-ibmMono font-bold text-accent"
+                            style="font-size: 10px;">
+                            {% if commenter_name %}{{ commenter_name|first|upper }}{% endif %}
+                        </span>
+                    </div>
+                    <span id="commenter-display-name" class="text-xs font-ibmMono font-semibold text-ink">
+                        {{ commenter_name|default:"" }}
+                    </span>
+                    <span class="text-muted font-ibmMono" style="font-size: 10px;">·</span>
+                    <span id="commenter-display-email" class="text-muted font-ibmMono truncate"
+                        style="font-size: 10px;">
+                        {{ commenter_email|default:"" }}
+                    </span>
+                </div>
+                <textarea id="comment-body" rows="3" maxlength="2000" placeholder="Write a comment..."
+                    class="w-full bg-soft border border-line/50 rounded-2xl px-3 py-3 text-sm text-ink font-base leading-relaxed placeholder:text-muted/50 outline-none focus:border-accent transition-colors"
+                    style="resize: none;"></textarea>
+                <div class="flex items-center justify-between mt-2">
+                    <span id="char-count" class="text-muted font-ibmMono" style="font-size: 10px;">0 / 2000</span>
+                    <button id="post-comment-btn"
+                        class="inline-flex items-center gap-1 hero-btn text-white rounded-full font-ibmMono uppercase px-4 py-1 tracking-widest text-xs font-bold transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 2 11 13" />
+                            <path d="m22 2-7 20-4-9-9-4z" />
+                        </svg>
+                        Post
+                    </button>
+                </div>
+                <p id="comment-post-error" class="text-xs text-red-500 font-ibmMono hidden mt-1"></p>
+            </div>
+        </div>
+
+        <!-- ── Divider ── -->
+        <div class="border-t border-line/30 mb-4"></div>
+
+        <!-- ── Comments List ── -->
+        <div id="comments-list" class="flex flex-col gap-4">
+            {% for comment in comments %}
+            <div class="comment-item flex gap-3 p-3 rounded-2xl transition-colors duration-150 hover:bg-soft/60">
+                <!-- Avatar -->
+                <div class="rounded-full flex items-center justify-center border"
+                    style="width: 32px; height: 32px; min-width: 32px; background: rgba(14,122,116,0.15); border-color: rgba(14,122,116,0.25);">
+                    <span class="font-ibmMono font-bold" style="font-size: 11px; color: #0e7a74;">
+                        {{ comment.commenter.name|first|upper }}
+                    </span>
+                </div>
+                <!-- Content -->
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-2 mb-1 flex-wrap">
+                        <span class="text-xs font-ibmMono font-semibold text-ink">
+                            {{ comment.commenter.name }}
+                        </span>
+                        <span class="text-muted font-ibmMono" style="font-size: 10px;">
+                            {{ comment.created_at|date:"M d, Y" }}
+                        </span>
+                    </div>
+                    <p class="text-sm text-muted leading-relaxed font-base" style="word-break: break-word;">
+                        {{ comment.body }}
+                    </p>
+                </div>
+            </div>
+            {% empty %}
+            <div id="no-comments" class="text-center py-6">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-muted mb-3"
+                    style="opacity: 0.4;">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+                <p class="text-xs text-muted font-ibmMono">No comments yet. Be the first!</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- ── Load More ── -->
+        {% if has_more_comments %}
+        <div id="load-more-wrap" class="mt-4 text-center">
+            <button id="load-more-btn"
+                class="inline-flex items-center gap-2 bg-soft border border-line/50 rounded-full font-ibmMono uppercase px-4 py-2 tracking-widest text-xs font-semibold text-muted hover:text-ink hover:border-line transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="7 13 12 18 17 13" />
+                    <polyline points="7 6 12 11 17 6" />
+                </svg>
+                Load more
+            </button>
+        </div>
+        {% endif %}
+    </div>
+</section>
