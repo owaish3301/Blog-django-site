@@ -10,7 +10,7 @@ class VerifiedCommenter(models.Model):
     The token is saved as a cookie so returning visitors don't need to re-verify.
     """
     name = models.CharField(max_length=100)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     token = models.CharField(max_length=64, unique=True, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateTimeField()
