@@ -1,21 +1,62 @@
 # Known Bugs
 
-## 1. Markdown output is marked safe without sanitization
-- Summary: Post body markdown is converted to HTML and returned with `mark_safe()`. If post content is ever not fully trusted, this allows XSS through rendered HTML.
+Production review updated on 2026-04-03.
+
+## 1. Production settings are still using unsafe development defaults
+- Severity: High
+- Summary: The site is configured like a development deployment. `SECRET_KEY` is hard-coded, `DEBUG` is enabled, `ALLOWED_HOSTS` allows everything, and the deploy check reports missing HSTS, missing HTTPS redirect, and insecure cookie settings.
+- Why it matters: In production this can expose Django debug pages, weaken cookie protection, and make host-header or transport-security mistakes much more damaging.
+- Evidence:
+  - `python manage.py check --deploy` reported warnings `security.W004`, `W008`, `W009`, `W012`, `W016`, and `W018`.
+- Affected filepaths:
+  - `blog/blog/settings.py`
+
+## 2. App startup is brittle if `DATABASE_URL` is missing or malformed
+- Severity: High
+- Summary: Settings parsing assumes `DATABASE_URL` exists and is valid. If it is missing, `urlparse(os.getenv("DATABASE_URL"))` can lead to a `TypeError` during settings import instead of a clean configuration error. The parsed database port is also ignored because the code hard-codes `5432`.
+- Why it matters: A bad environment variable can take the whole site down at boot, and alternate ports cannot be honored even if they are present in the URL.
+- Affected filepaths:
+  - `blog/blog/settings.py`
+
+## 3. Commenter verification is not concurrency-safe
+- Severity: High
+- Summary: `verify_otp()` uses `update_or_create(email=...)`, but `VerifiedCommenter.email` is not unique and the `token` is generated only later in `save()`.
+- Why it matters: Concurrent verification requests for the same email can create duplicate commenter rows or trigger integrity problems. Later lookups that expect a single row can then raise `MultipleObjectsReturned` and return a 500.
+- Affected filepaths:
+  - `blog/comments/views.py`
+  - `blog/comments/models.py`
+
+## 4. Email-backed flows can report success even when email delivery fails
+- Severity: High
+- Summary: Both OTP delivery and newsletter signup use `send_mail(..., fail_silently=True)` and do not check the send result. The OTP record is created before email delivery is attempted, and the newsletter flow sets a success cookie after the call regardless of whether the email was actually accepted by the backend.
+- Why it matters: In production, SMTP outages or credential issues can silently break onboarding while the UI continues telling users everything worked.
+- Affected filepaths:
+  - `blog/comments/views.py`
+  - `blog/posts/views.py`
+
+## 5. Comment APIs can 500 on bad input and expose scheduled posts
+- Severity: Medium
+- Summary: `get_comments()` casts `page` with `int(request.GET.get("page", 1))` without validation, so `/comments/list/<slug>/?page=abc` can raise a server error. Also, `post_comment()` and `get_comments()` only require `status=PUBLISHED`; they do not enforce `published_at__lte=timezone.now()`.
+- Why it matters: A malformed request can trigger a 500, and scheduled posts can become discoverable and commentable before the post detail page is publicly available.
+- Affected filepaths:
+  - `blog/comments/views.py`
+  - `blog/posts/views.py`
+
+
+## 7. Markdown rendering is marked safe without sanitization
+- Severity: Medium
+- Summary: Post body markdown is converted to HTML and returned with `mark_safe()` after enabling multiple markdown extensions, but no sanitization step is applied.
+- Why it matters: If post content is ever not fully trusted, this becomes an XSS path that can execute arbitrary HTML or script payloads in readers' browsers.
 - Affected filepaths:
   - `blog/posts/templatetags/markdown_extras.py`
   - `blog/posts/templates/posts/blog_detail.html`
 
-## 2. `published_at` does not reliably mean "time actually published"
-- Summary: `published_at` defaults when the row is created. If a post is created as a draft and published later, ordering and featured/latest selection can still reflect the draft creation time unless the field is updated manually.
+## 8. `published_at` does not reliably mean "time actually published"
+- Severity: Medium
+- Summary: `published_at` defaults at row creation time. If a post is drafted first and published later, ordering, "latest post", and featured-post logic can still reflect the draft creation timestamp unless the field is manually updated.
+- Why it matters: Production content ordering can be wrong even when the post status is correct, which affects homepage latest-post selection and blog page featuring.
 - Affected filepaths:
   - `blog/posts/models.py`
   - `blog/posts/views.py`
   - `blog/blog/views.py`
-
-## 4. Newsletter forms submit with GET and do nothing useful
-- Summary: Both newsletter forms submit back to the current page with no backend handling. The email ends up in the query string and no subscription is processed.
-- Affected filepaths:
-  - `blog/posts/templates/posts/blog.html`
-  - `blog/templates/landing_page/index.html`
 

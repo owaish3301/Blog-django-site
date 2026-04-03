@@ -4,18 +4,49 @@ from .models import Post
 from django.utils import timezone
 from .forms import SubscriptionForm
 from django.core.mail import send_mail
+from subscription.models import Subscriber
+
+
+def _build_blog_list_context(request, form):
+    published = Post.objects.filter(
+        status=Post.Status.PUBLISHED, published_at__lte=timezone.now()
+    )
+    total_count = published.count()
+    featured_blog = published.first()  # latest published post
+    posts = published.exclude(pk=featured_blog.pk) if featured_blog else published
+
+    paginator = Paginator(posts, 9)
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
+    pagination_range = list(paginator.get_elided_page_range(number=page_obj.number))
+
+    return {
+        "posts": page_obj,
+        "pagination_range": pagination_range,
+        "pagination_ellipsis": paginator.ELLIPSIS,
+        "featured_blog": featured_blog,
+        "total_count": total_count,
+        "form": form,
+    }
+
 
 def get_all_posts(request):
     if request.method == "POST":
         form = SubscriptionForm(request.POST)
         if form.is_valid():
-            formData = form.cleaned_data
-             # TODO:Fault tolerance and monitoring
-            send_mail("Welcome to Owaish Codes",
-                 "You're now subscribed to Owaish Codes.\n\n" "Whenever I publish something new, it'll land in your inbox. No spam. Just signal.\n\n" "— Owaish",
-                  None, [formData["email"]],
-                  fail_silently=True,
-                  html_message="""
+            email = form.cleaned_data["email"].strip().lower()
+            Subscriber.objects.get_or_create(email=email)
+
+            try:
+                send_mail(
+                    "Welcome to Owaish Codes",
+                    "You're now subscribed to Owaish Codes.\n\n"
+                    "Whenever I publish something new, it'll land in your inbox. No spam. Just signal.\n\n"
+                    "— Owaish",
+                    None,
+                    [email],
+                    fail_silently=False,
+                    html_message="""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,40 +119,33 @@ def get_all_posts(request):
   </table>
 </body>
 </html>
-    """,
-)
-            
-            response = redirect("/blog/?subscribed=1")
-            response.set_cookie("subscribed", "1", max_age=60*60*24*365)
-            return response
+                    """,
+                )
+
+                response = redirect("/blog/?subscribed=1")
+                response.set_cookie("subscribed", "1", max_age=60 * 60 * 24 * 365)
+                return response
+            except Exception:
+                form.add_error(
+                    None,
+                    "Your subscription was saved, but the welcome email could not be sent right now. "
+                    "This can happen when the mail provider rejects the address or rate-limits requests.",
+                )
+
+                response = render(
+                    request,
+                    "posts/blog.html",
+                    _build_blog_list_context(request, form),
+                )
+                response.set_cookie("subscribed", "1", max_age=60 * 60 * 24 * 365)
+                return response
     else:
         form = SubscriptionForm()
-
-    published = Post.objects.filter(
-        status=Post.Status.PUBLISHED, published_at__lte=timezone.now()
-    )
-    total_count = published.count()
-    featured_blog = published.first()  # latest published post
-    posts = published.exclude(pk=featured_blog.pk) if featured_blog else published
-
-    paginator = Paginator(posts, 9)
-    page_number = request.GET.get("page", 1)
-    page_obj = paginator.get_page(page_number)
-    pagination_range = list(
-        paginator.get_elided_page_range(number=page_obj.number)
-    )
 
     return render(
         request,
         "posts/blog.html",
-        {
-            "posts": page_obj,
-            "pagination_range": pagination_range,
-            "pagination_ellipsis": paginator.ELLIPSIS,
-            "featured_blog": featured_blog,
-            "total_count": total_count,
-            "form" : form
-        },
+        _build_blog_list_context(request, form),
     )
 
 

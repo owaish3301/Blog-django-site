@@ -265,6 +265,12 @@ Blog{% endblock %} {% block content %}
               {% endif %}
             </div>
 
+            {% if form.non_field_errors %}
+            <div class="rounded-3xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-900">
+              {{ form.non_field_errors.0 }}
+            </div>
+            {% endif %}
+
             <button id="subscribe-btn" type="submit"
               class="w-full relative overflow-hidden rounded-full font-ibmMono text-sm tracking-widest uppercase text-white hover:cursor-pointer bg-ink group/btn py-4 flex items-center justify-center gap-2 transition-all hover:bg-accent-deep shadow-[0_8px_20px_rgba(23,20,16,0.2)] hover:shadow-[0_12px_24px_rgba(159,52,27,0.3)]">
               <span class="relative z-10 font-bold">Subscribe</span>

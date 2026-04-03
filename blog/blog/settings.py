@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'posts.apps.PostsConfig',
     'comments.apps.CommentsConfig',
+    'subscription.apps.SubscriptionConfig',
     'django_browser_reload',
 ]
 
