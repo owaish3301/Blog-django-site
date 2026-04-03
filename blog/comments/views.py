@@ -194,7 +194,7 @@ def post_comment(request):
     if len(body) > 2000:
         return JsonResponse({"error": "Comment is too long (max 2000 characters)."}, status=400)
 
-    post = get_object_or_404(Post, slug=post_slug, status=Post.Status.PUBLISHED)
+    post = get_object_or_404(Post, slug=post_slug, status=Post.Status.PUBLISHED, published_at__lte=timezone.now())
 
     comment = Comment.objects.create(
         post=post,
@@ -217,9 +217,12 @@ def post_comment(request):
 @require_GET
 def get_comments(request, slug):
     """Get paginated comments for a post (load-more style)."""
-    post = get_object_or_404(Post, slug=slug, status=Post.Status.PUBLISHED)
+    post = get_object_or_404(Post, slug=slug, status=Post.Status.PUBLISHED, published_at__lte=timezone.now())
 
-    page = int(request.GET.get("page", 1))
+    try:
+        page = max(1, int(request.GET.get("page", 1)))
+    except (ValueError, TypeError):
+        page = 1
     per_page = 5
 
     comments = Comment.objects.filter(post=post, is_approved=True).select_related("commenter")
