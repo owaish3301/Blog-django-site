@@ -36,3 +36,11 @@ class Post(models.Model):
         words = len(self.body.split())
         minutes = ceil(words / 100) #100 words per minute
         return max(1, minutes)
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            # If changing from DRAFT to PUBLISHED, update published_at.
+            old_post = Post.objects.filter(pk=self.pk).first()
+            if old_post and old_post.status == self.Status.DRAFT and self.status == self.Status.PUBLISHED:
+                self.published_at = timezone.now()
+        super().save(*args, **kwargs)
