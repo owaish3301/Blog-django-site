@@ -26,13 +26,6 @@ Production review updated on 2026-04-03.
   - `blog/comments/views.py`
   - `blog/comments/models.py`
 
-## 4. Email-backed flows can report success even when email delivery fails
-- Severity: High
-- Summary: Both OTP delivery and newsletter signup use `send_mail(..., fail_silently=True)` and do not check the send result. The OTP record is created before email delivery is attempted, and the newsletter flow sets a success cookie after the call regardless of whether the email was actually accepted by the backend.
-- Why it matters: In production, SMTP outages or credential issues can silently break onboarding while the UI continues telling users everything worked.
-- Affected filepaths:
-  - `blog/comments/views.py`
-  - `blog/posts/views.py`
 
 ## 5. Comment APIs can 500 on bad input and expose scheduled posts
 - Severity: Medium

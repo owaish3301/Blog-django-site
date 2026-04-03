@@ -49,19 +49,21 @@ def send_otp(request):
 
     otp_code = _generate_otp()
 
-    EmailOTP.objects.create(
+    # Save the OTP locally first
+    otp_record = EmailOTP.objects.create(
         email=email,
         name=name,
         otp=otp_code,
     )
 
-    send_mail(
-        subject="Your verification code — Owaish Codes",
-        message=f"Your verification code is: {otp_code}\n\nThis code expires in 10 minutes.",
-        from_email=None,
-        recipient_list=[email],
-        fail_silently=True,
-        html_message=f"""
+    try:
+        send_mail(
+            subject="Your verification code — Owaish Codes",
+            message=f"Your verification code is: {otp_code}\n\nThis code expires in 10 minutes.",
+            from_email=None,
+            recipient_list=[email],
+            fail_silently=False,
+            html_message=f"""
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/></head>
@@ -90,7 +92,14 @@ def send_otp(request):
 </body>
 </html>
 """,
-    )
+        )
+    except Exception as e:
+        # If sending mail failed, delete the OTP attempt so they can try again.
+        otp_record.delete()
+        return JsonResponse(
+            {"error": "Failed to send the email. Please try again later."},
+            status=500
+        )
 
     return JsonResponse({"message": "OTP sent successfully."})
 
