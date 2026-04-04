@@ -14,3 +14,10 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'published_at'
     ordering = ['status', 'published_at']
     show_facets = admin.ShowFacets.ALWAYS
+
+    class Media:
+        css = {"all": ("posts/css/admin_markdown.css",)}
+        js = (
+            "https://cdn.jsdelivr.net/npm/marked/marked.min.js",
+            "posts/scripts/admin_markdown.js",
+        )
