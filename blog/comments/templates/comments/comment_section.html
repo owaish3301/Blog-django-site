@@ -58,6 +58,13 @@
                     </div>
                     <p id="otp-verify-error" class="text-xs text-red-500 font-ibmMono hidden"></p>
                 </div>
+
+                <p class="text-[10px] leading-relaxed text-muted font-ibmMono mt-3">
+                    By verifying and posting, you agree to the
+                    <a href="{% url 'legal_page' %}#privacy" class="text-accent hover:underline">Privacy Policy</a>,
+                    <a href="{% url 'legal_page' %}#terms" class="text-accent hover:underline">Terms</a>, and
+                    <a href="{% url 'legal_page' %}#disclaimer" class="text-accent hover:underline">Disclaimer</a>.
+                </p>
             </div>
 
             <!-- State 2: Verified — show comment box -->

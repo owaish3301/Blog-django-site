@@ -50,14 +50,15 @@
             <a class="block text-ink no-underline text-xs md:text-sm font-ibmMono font-semibold uppercase tracking-widest px-5 py-3 md:py-2.5 rounded-full hover:bg-white hover:shadow-sm md:hover:bg-white/60 transition-all duration-300 text-center md:text-left hover:-translate-y-0.5 {% if request.path == url_blog or '/blog/' in request.path or '/post/' in request.path %}bg-white shadow-sm border border-line/30{% else %}bg-white/40 md:bg-transparent border border-transparent hover:border-line/30{% endif %}"
               href="{{ url_blog }}">Blog</a>
           </li>
+          {% url 'about_page' as url_about %}
           <li>
             <a class="block text-ink no-underline text-xs md:text-sm font-ibmMono font-semibold uppercase tracking-widest px-5 py-3 md:py-2.5 rounded-full hover:bg-white hover:shadow-sm md:hover:bg-white/60 transition-all duration-300 border border-transparent hover:border-line/30 text-center md:text-left hover:-translate-y-0.5 {% if '/about/' in request.path %}bg-white shadow-sm border border-line/30{% else %}bg-white/40 md:bg-transparent border border-transparent hover:border-line/30{% endif %}"
-              href="#">About me</a>
+              href="{{ url_about }}">About me</a>
           </li>
-          <li>
+          {% comment %} <li>
             <a class="block text-white no-underline text-xs md:text-sm font-ibmMono font-bold uppercase tracking-widest px-6 py-3 md:py-2.5 rounded-full bg-ink hover:bg-accent-deep hover:shadow-lg transition-all duration-300 border border-ink hover:border-accent-deep ml-0 md:ml-2 mt-2 md:mt-0 shadow-md justify-center hover:-translate-y-0.5"
               href="#">Contact</a>
-          </li>
+          </li> {% endcomment %}
         </ul>
       </nav>
     </header>
@@ -66,7 +67,18 @@
       {% block content %}{% endblock %}
     </main>
 
-    <footer></footer>
+    <footer class="mt-10 mb-4 bg-soft/80 rounded-2xl">
+      <div class="max-w-350 mx-auto rounded-4xl border border-line/30  backdrop-blur-sm px-5 py-5">
+        <div class="text-center flex flex-col gap-3 md:flex-row just md:items-center justify-center">
+          <p class="text-muted font-ibmMono text-[11px] tracking-widest uppercase">
+            Owaish Codes
+          </p>
+          <a href="{% url 'legal_page' %}" class="px-3 py-2 rounded-full border border-line/40 text-muted hover:text-ink hover:border-accent transition-colors">Privacy</a>
+          <a href="{% url 'legal_page' %}#terms" class="px-3 py-2 rounded-full border border-line/40 text-muted hover:text-ink hover:border-accent transition-colors">Terms</a>
+          <a href="{% url 'legal_page' %}#disclaimer" class="px-3 py-2 rounded-full border border-line/40 text-muted hover:text-ink hover:border-accent transition-colors">Disclaimer</a>
+        </div>
+      </div>
+    </footer>
   </div>
 
   {% block scripts %}{% endblock %}

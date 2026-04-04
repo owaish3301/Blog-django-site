@@ -280,6 +280,13 @@ Blog{% endblock %} {% block content %}
                 <path d="m12 5 7 7-7 7" />
               </svg>
             </button>
+
+            <p class="text-[11px] leading-relaxed text-muted font-ibmMono">
+              By subscribing, you agree to the
+              <a href="{% url 'legal_page' %}#privacy" class="text-accent hover:underline">Privacy Policy</a>
+              and
+              <a href="{% url 'legal_page' %}#terms" class="text-accent hover:underline">Terms</a>.
+            </p>
           </form>
         </div>
       </section>

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Legal | Owaish Codes{% endblock %}
+
+{% block content %}
+<section class="max-w-5xl mx-auto rounded-[2.5rem] border border-line/40 bg-panel/60 backdrop-blur-sm p-6 md:p-10 lg:p-12">
+  <div class="mb-10 pb-8 border-b border-line/40">
+    <p class="font-ibmMono text-xs tracking-widest uppercase text-accent-alt font-semibold mb-3">Legal</p>
+    <h1 class="font-unbounded text-3xl md:text-5xl leading-tight mb-4">Privacy Policy, Terms of Use, and Disclaimer</h1>
+    <p class="text-muted font-base text-base md:text-lg leading-relaxed">
+      Last updated: {{ last_updated }}
+    </p>
+  </div>
+
+  <div class="space-y-10 text-ink">
+    <section id="privacy">
+      <h2 class="font-unbounded text-2xl mb-4">1. Privacy Policy</h2>
+      <div class="space-y-4 text-base leading-relaxed text-muted">
+        <p>
+          This website collects limited personal data to run the newsletter and comments features.
+        </p>
+        <p>
+          <strong>Data collected for subscription:</strong> your email address.
+        </p>
+        <p>
+          <strong>Data collected for comments:</strong> your name, email address, one-time verification code usage, and the comment text you submit.
+        </p>
+        <p>
+          <strong>How this data is used:</strong> to send newsletter updates you requested, verify commenter identity via one-time code, allow posting comments, and help prevent abuse.
+        </p>
+        <p>
+          <strong>Cookies used:</strong> a cookie may store your subscription state and a secure commenter session token so you do not need to verify on every comment.
+        </p>
+        <p>
+          <strong>Data retention:</strong> subscriber records and approved comments may be kept until removed by site administration; verification tokens are time-limited; OTP records are temporary and expire automatically.
+        </p>
+        <p>
+          <strong>Email delivery:</strong> verification and newsletter emails are sent using configured email infrastructure. Delivery providers may process message metadata required to send messages.
+        </p>
+        <p>
+          <strong>Your choices:</strong> you can request deletion of your subscriber data or commenter profile and ask for comment removal by contacting the site owner.
+          {% if contact_email %}
+          Contact: <a class="text-accent hover:underline" href="mailto:{{ contact_email }}">{{ contact_email }}</a>.
+          {% else %}
+          Contact details are available through the site owner.
+          {% endif %}
+        </p>
+      </div>
+    </section>
+
+    <section id="terms">
+      <h2 class="font-unbounded text-2xl mb-4">2. Terms of Use</h2>
+      <div class="space-y-4 text-base leading-relaxed text-muted">
+        <p>
+          By using this site, you agree not to misuse it, interfere with normal operation, attempt unauthorized access, or submit unlawful, abusive, or spam content.
+        </p>
+        <p>
+          You are responsible for content you submit in comments. The site owner may moderate, edit, or remove comments at any time.
+        </p>
+        <p>
+          Content on this site is provided for informational and educational purposes. Access may be modified, suspended, or discontinued without notice.
+        </p>
+      </div>
+    </section>
+
+    <section id="disclaimer">
+      <h2 class="font-unbounded text-2xl mb-4">3. Disclaimer and Limitation of Liability</h2>
+      <div class="space-y-4 text-base leading-relaxed text-muted">
+        <p>
+          The content on this site is provided "as is" without warranties of any kind, express or implied.
+        </p>
+        <p>
+          Nothing on this website constitutes legal, financial, tax, security, or professional advice. You should seek qualified professional advice for your specific situation.
+        </p>
+        <p>
+          To the fullest extent permitted by law, the site owner is not liable for direct, indirect, incidental, consequential, or special damages resulting from your use of this website, reliance on its content, temporary downtime, or third-party services.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="font-unbounded text-2xl mb-4">4. Third-Party Services and Links</h2>
+      <div class="space-y-4 text-base leading-relaxed text-muted">
+        <p>
+          This site may link to third-party websites and may rely on third-party services for infrastructure, analytics, or email delivery. Their own policies and terms apply.
+        </p>
+        <p>
+          The site owner does not control and is not responsible for external websites, services, or their content.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="font-unbounded text-2xl mb-4">5. Policy Updates</h2>
+      <div class="space-y-4 text-base leading-relaxed text-muted">
+        <p>
+          This legal page may be updated at any time. Continued use of the site after updates means you accept the revised terms.
+        </p>
+      </div>
+    </section>
+  </div>
+</section>
+{% endblock %}
