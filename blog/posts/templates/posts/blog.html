@@ -74,8 +74,7 @@ Blog{% endblock %} {% block content %}
             class="relative flex h-full w-full min-w-0 flex-col overflow-hidden rounded-4xl border border-line/40 bg-panel/50 p-5 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:border-accent/40 hover:bg-white hover:shadow-xl sm:p-6 lg:p-8">
             {% if post.category %}
             <span
-              class="font-ibmMono text-[10px] md:text-xs tracking-widest uppercase text-accent-alt mb-5 font-bold">{{
-              post.category }}</span>
+              class="font-ibmMono text-[10px] md:text-xs tracking-widest uppercase text-accent-alt mb-5 font-bold">{{ post.category }}</span>
             {% endif %}
 
             <h3
