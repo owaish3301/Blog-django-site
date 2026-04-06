@@ -1,8 +1,10 @@
 from math import ceil
-
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVector
+
 
 class Category(models.Model):
     title = models.CharField(max_length=50)
@@ -32,7 +34,12 @@ class Post(models.Model):
 
     class Meta:
         ordering = ["-published_at"]
-        indexes = [models.Index(fields=["-published_at"]), ]
+        indexes = [
+            models.Index(fields=["-published_at"]),
+            GinIndex(
+            SearchVector('title', 'body'),
+            name='post_search_idx'
+        ),]
 
 
     def __str__(self):

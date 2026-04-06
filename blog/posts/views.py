@@ -5,12 +5,26 @@ from django.utils import timezone
 from .forms import SubscriptionForm
 from django.core.mail import send_mail
 from subscription.models import Subscriber
-
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 def _build_blog_list_context(request, form):
+    category = request.GET.get("category")
+    search = request.GET.get("q")
+
     published = Post.objects.filter(
         status=Post.Status.PUBLISHED, published_at__lte=timezone.now()
     )
+
+    if category:
+        published = published.filter(category__slug__iexact = category)
+    if search:
+        vector = SearchVector('title', weight='A') + SearchVector('body', weight='B')
+        query = SearchQuery(search)
+
+        published = published.annotate(
+            rank=SearchRank(vector, query)
+        ).filter(rank__gte=0.1).order_by('-rank')
+
     total_count = published.count()
     featured_blog = published.first()  # latest published post
     posts = published.exclude(pk=featured_blog.pk) if featured_blog else published

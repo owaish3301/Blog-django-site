@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'comments.apps.CommentsConfig',
     'subscription.apps.SubscriptionConfig',
+    'django.contrib.postgres',
     'django_browser_reload',
 ]
 
