@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post
+from django.db.models import Count, Q
+from .models import Category, Post
 from django.utils import timezone
 from .forms import SubscriptionForm
 from django.core.mail import send_mail
@@ -8,15 +9,34 @@ from subscription.models import Subscriber
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 def _build_blog_list_context(request, form):
-    category = request.GET.get("category")
-    search = request.GET.get("q")
+    category = (request.GET.get("category") or "").strip().lower()
+    search = (request.GET.get("q") or "").strip()
+    now = timezone.now()
 
-    published = Post.objects.filter(
-        status=Post.Status.PUBLISHED, published_at__lte=timezone.now()
+    published = (
+        Post.objects.filter(
+            status=Post.Status.PUBLISHED,
+            published_at__lte=now,
+        )
+        .select_related("category")
+    )
+
+    categories = (
+        Category.objects.annotate(
+            post_count=Count(
+                "posts",
+                filter=Q(
+                    posts__status=Post.Status.PUBLISHED,
+                    posts__published_at__lte=now,
+                ),
+            )
+        )
+        .filter(post_count__gt=0)
+        .order_by("title")
     )
 
     if category:
-        published = published.filter(category__slug__iexact = category)
+        published = published.filter(category__slug__iexact=category)
     if search:
         vector = SearchVector('title', weight='A') + SearchVector('body', weight='B')
         query = SearchQuery(search)
@@ -25,14 +45,18 @@ def _build_blog_list_context(request, form):
             rank=SearchRank(vector, query)
         ).filter(rank__gte=0.1).order_by('-rank')
 
+    has_active_filters = bool(category or search)
     total_count = published.count()
-    featured_blog = published.first()  # latest published post
+    featured_blog = None if has_active_filters else published.first()
     posts = published.exclude(pk=featured_blog.pk) if featured_blog else published
 
     paginator = Paginator(posts, 9)
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
     pagination_range = list(paginator.get_elided_page_range(number=page_obj.number))
+    pagination_params = request.GET.copy()
+    pagination_params.pop("page", None)
+    selected_category = categories.filter(slug__iexact=category).first() if category else None
 
     return {
         "posts": page_obj,
@@ -41,6 +65,17 @@ def _build_blog_list_context(request, form):
         "featured_blog": featured_blog,
         "total_count": total_count,
         "form": form,
+        "categories": categories,
+        "active_category_slug": category,
+        "active_category_title": (
+            selected_category.title
+            if selected_category
+            else category.replace("-", " ").title()
+        ),
+        "active_search": search,
+        "has_active_filters": has_active_filters,
+        "show_featured": not has_active_filters,
+        "pagination_query": pagination_params.urlencode(),
     }
 
 

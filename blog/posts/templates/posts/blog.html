@@ -1,9 +1,12 @@
-{% extends "base.html" %} {% load static %} {% block title %}Owaish Codes |
-Blog{% endblock %} {% block content %}
+{% extends "base.html" %} 
+{% load static %} 
+{% block title %} Owaish Codes | Blog {% endblock %} 
+{% block content %}
 
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16 relative">
   <div class="lg:col-span-8 min-w-0 flex flex-col gap-16 lg:gap-24">
-    {# ── FEATURED POST ── #} {% if featured_blog and posts.number == 1 %}
+    {# ── FEATURED POST ── #} 
+    {% if featured_blog and posts.number == 1 %}
     <section>
       <div class="flex items-center gap-4 mb-8">
         <h2 class="font-ibmMono text-sm tracking-widest uppercase text-accent-alt font-semibold">
@@ -56,14 +59,118 @@ Blog{% endblock %} {% block content %}
         </article>
       </a>
     </section>
-    {% endif %} {# ── ALL POSTS LISTING ── #}
+    {% endif %}
+    
+    {# ── ALL POSTS LISTING ── #}
     <section>
-      <div class="flex items-center gap-4 mb-8">
+      {# ── FILTER TOGGLE BAR ── #}
+      <div class="flex items-center gap-4 mb-6">
         <h2 class="font-ibmMono text-sm tracking-widest uppercase text-muted font-semibold">
-          {% if featured_blog and posts.number == 1 %}More Editorials{% else
-          %}Latest Posts{% endif %}
+          {% if featured_blog and posts.number == 1 %}More Editorials{% else %}Latest Posts{% endif %}
         </h2>
         <div class="h-px flex-1 bg-line/40"></div>
+        <button
+          id="filter-toggle-btn"
+          aria-expanded="false"
+          aria-controls="filter-panel"
+          class="relative inline-flex items-center gap-2 rounded-full border border-line/50 bg-panel/60 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink backdrop-blur-sm transition-all duration-200 hover:border-accent/50 hover:text-accent hover:bg-white active:scale-[0.95]"
+        >
+          {% if has_active_filters %}
+          <span class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-accent shadow-sm"></span>
+          {% endif %}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+            <line x1="11" y1="18" x2="13" y2="18" />
+          </svg>
+          Filters
+        </button>
+      </div>
+
+      {# ── COLLAPSIBLE FILTER PANEL ── #}
+      <div
+        id="filter-panel"
+        data-active-filters="{% if has_active_filters %}1{% else %}0{% endif %}"
+        class="overflow-hidden transition-all duration-300 ease-in-out"
+        style="max-height: 0; opacity: 0;"
+      >
+        <div class="mb-8 rounded-4xl border border-line/40 bg-panel/50 backdrop-blur-sm p-6">
+          <form method="GET" action="" class="flex flex-col gap-4" id="filter-form">
+
+            {# Search bar #}
+            <div class="relative">
+              <label for="filter-search" class="block font-ibmMono text-[10px] tracking-widest uppercase text-muted mb-2">Search</label>
+              <div class="relative">
+                <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+                <input
+                  id="filter-search"
+                  type="text"
+                  name="q"
+                  value="{{ active_search }}"
+                  placeholder="Search posts…"
+                  class="w-full rounded-full border border-line/50 bg-white/70 pl-10 pr-4 py-2.5 font-ibmMono text-sm text-ink placeholder:text-muted/60 focus:outline-none focus:border-accent/60 focus:bg-white transition-all duration-200"
+                />
+              </div>
+            </div>
+
+            {# Hidden input — updated by JS when a category pill is clicked #}
+            <input type="hidden" name="category" id="category-input" value="{{ active_category_slug }}">
+
+            {# Category pills #}
+            {% if categories %}
+            <div>
+              <p class="font-ibmMono text-[10px] tracking-widest uppercase text-muted mb-3">Category</p>
+              <div class="flex flex-wrap gap-2" id="category-pills">
+                <button
+                  type="button"
+                  data-category=""
+                  class="category-pill inline-flex items-center rounded-full border px-4 py-1.5 font-ibmMono text-xs font-semibold tracking-widest uppercase transition-all duration-200 hover:scale-[1.04] active:scale-[0.96] {% if not active_category_slug %}border-accent bg-accent text-white shadow-sm pill-active{% else %}border-line/50 bg-white/60 text-ink hover:border-accent/50 hover:text-accent{% endif %}"
+                >All</button>
+                {% for cat in categories %}
+                <button
+                  type="button"
+                  data-category="{{ cat.slug }}"
+                  class="category-pill inline-flex items-center gap-1.5 rounded-full border px-4 py-1.5 font-ibmMono text-xs font-semibold tracking-widest uppercase transition-all duration-200 hover:scale-[1.04] active:scale-[0.96] {% if active_category_slug == cat.slug %}border-accent bg-accent text-white shadow-sm pill-active{% else %}border-line/50 bg-white/60 text-ink hover:border-accent/50 hover:text-accent{% endif %}"
+                >
+                  {{ cat.title }}
+                  <span class="opacity-60 font-normal">{{ cat.post_count }}</span>
+                </button>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+
+            {# Action row #}
+            <div class="flex items-center gap-3 pt-1 border-t border-line/20">
+              <button
+                type="submit"
+                class="inline-flex items-center gap-2 rounded-full bg-ink text-white font-ibmMono text-xs uppercase tracking-widest px-5 py-2.5 font-bold transition-all hover:bg-accent-deep hover:scale-[1.03] active:scale-[0.97] shadow-sm"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+                Apply
+              </button>
+              {% if has_active_filters %}
+              <a
+                href="{% url 'get_all_posts' %}"
+                class="inline-flex items-center gap-2 rounded-full border border-line/50 bg-white/60 text-ink font-ibmMono text-xs uppercase tracking-widest px-5 py-2.5 transition-all hover:border-accent/50 hover:text-accent hover:scale-[1.03] active:scale-[0.97]"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+                Clear
+              </a>
+              {% endif %}
+              <span class="ml-auto font-ibmMono text-[10px] tracking-widest text-muted uppercase">{{ total_count }} post{{ total_count|pluralize }}</span>
+            </div>
+
+          </form>
+        </div>
       </div>
 
       {% if posts %}
@@ -114,7 +221,7 @@ Blog{% endblock %} {% block content %}
 
           <div class="flex flex-wrap items-center gap-2">
             {% if posts.has_previous %}
-            <a href="?page={{ posts.previous_page_number }}"
+            <a href="?{{ pagination_query }}&page={{ posts.previous_page_number }}"
               class="inline-flex items-center gap-2 rounded-full border border-line/40 bg-white/70 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] hover:border-accent hover:text-accent">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -135,12 +242,12 @@ Blog{% endblock %} {% block content %}
               {{ page_number }}
             </span>
             {% else %}
-            <a href="?page={{ page_number }}"
+            <a href="?{{ pagination_query }}&page={{ page_number }}"
               class="inline-flex h-10 min-w-10 items-center justify-center rounded-full border border-line/40 bg-white/70 px-4 font-ibmMono text-xs font-semibold text-ink transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] hover:border-accent hover:text-accent">
               {{ page_number }}
             </a>
             {% endif %} {% endfor %} {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}"
+            <a href="?{{ pagination_query }}&page={{ posts.next_page_number }}"
               class="ml-auto inline-flex items-center gap-2 rounded-full border border-line/40 bg-white/70 px-4 py-2 font-ibmMono text-xs font-semibold uppercase tracking-widest text-ink transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] hover:border-accent hover:text-accent">
               Next
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -321,4 +428,79 @@ Blog{% endblock %} {% block content %}
 
 {% endblock %} {% block scripts %}
 <script type="module" src="{% static 'scripts/navBarExpand.js' %}"></script>
+<script>
+(function () {
+  const btn = document.getElementById('filter-toggle-btn');
+  const panel = document.getElementById('filter-panel');
+  if (!btn || !panel) return;
+
+  // Determine if filters are active via data attribute (open panel by default)
+  const hasActiveFilters = panel.dataset.activeFilters === '1';
+
+  function openPanel() {
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    panel.style.opacity = '1';
+    btn.setAttribute('aria-expanded', 'true');
+    btn.classList.add('border-accent/50', 'text-accent', 'bg-white');
+  }
+
+  function closePanel() {
+    panel.style.maxHeight = '0';
+    panel.style.opacity = '0';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.classList.remove('border-accent/50', 'text-accent', 'bg-white');
+  }
+
+  if (hasActiveFilters) {
+    // Open immediately without transition flash
+    panel.style.transition = 'none';
+    openPanel();
+    requestAnimationFrame(() => {
+      panel.style.transition = '';
+    });
+  }
+
+  btn.addEventListener('click', function () {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    if (isOpen) {
+      closePanel();
+    } else {
+      // Recalc scrollHeight in case content changed
+      panel.style.maxHeight = 'none';
+      const h = panel.scrollHeight;
+      panel.style.maxHeight = '0';
+      requestAnimationFrame(() => {
+        panel.style.maxHeight = h + 'px';
+        panel.style.opacity = '1';
+      });
+      btn.setAttribute('aria-expanded', 'true');
+      btn.classList.add('border-accent/50', 'text-accent', 'bg-white');
+    }
+  });
+
+  // ── Category pill selection (no navigation — updates hidden input only) ──
+  const categoryInput = document.getElementById('category-input');
+  const pills = document.querySelectorAll('.category-pill');
+
+  const activeClasses    = ['border-accent', 'bg-accent', 'text-white', 'shadow-sm'];
+  const inactiveClasses  = ['border-line/50', 'bg-white/60', 'text-ink', 'hover:border-accent/50', 'hover:text-accent'];
+
+  pills.forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      // Update hidden input
+      categoryInput.value = pill.dataset.category;
+
+      // Re-style all pills
+      pills.forEach(function (p) {
+        p.classList.remove(...activeClasses);
+        p.classList.add(...inactiveClasses);
+      });
+
+      // Mark clicked pill as active
+      pill.classList.remove(...inactiveClasses);
+      pill.classList.add(...activeClasses);
+    });
+  });
+})();
+</script>
 {% endblock %}
