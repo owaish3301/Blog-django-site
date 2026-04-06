@@ -4,6 +4,12 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 
+class Category(models.Model):
+    title = models.CharField(max_length=50)
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.title
 
 class Post(models.Model):
     # enum for status
@@ -15,7 +21,7 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, max_length=250)
     description = models.CharField(max_length=250)
     body = models.TextField()
-    category = models.CharField(max_length=10)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="posts")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name = 'blog_posts')
     published_at = models.DateTimeField(default=timezone.now, )
     created_at = models.DateTimeField(auto_now_add=True)

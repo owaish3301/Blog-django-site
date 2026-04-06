@@ -327,9 +327,6 @@
   .z-999 {
     z-index: 999;
   }
-  .z-\[999\] {
-    z-index: 999;
-  }
   .col-span-5 {
     grid-column: span 5 / span 5;
   }
@@ -1897,11 +1894,6 @@
   .md\:items-end {
     @media (width >= 48rem) {
       align-items: flex-end;
-    }
-  }
-  .md\:justify-evenly {
-    @media (width >= 48rem) {
-      justify-content: space-evenly;
     }
   }
   .md\:gap-8 {
