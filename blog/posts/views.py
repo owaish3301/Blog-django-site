@@ -38,8 +38,10 @@ def _build_blog_list_context(request, form):
     if category:
         published = published.filter(category__slug__iexact=category)
     if search:
-        vector = SearchVector('title', weight='A') + SearchVector('body', weight='B')
-        query = SearchQuery(search)
+        vector = SearchVector("title", weight="A", config="english") + SearchVector(
+            "body", weight="B", config="english"
+        )
+        query = SearchQuery(search, config="english")
 
         published = published.annotate(
             rank=SearchRank(vector, query)

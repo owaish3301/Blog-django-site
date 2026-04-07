@@ -37,9 +37,10 @@ class Post(models.Model):
         indexes = [
             models.Index(fields=["-published_at"]),
             GinIndex(
-            SearchVector('title', 'body'),
-            name='post_search_idx'
-        ),]
+                SearchVector("title", "body", config="english"),
+                name="post_search_idx",
+            ),
+        ]
 
 
     def __str__(self):
