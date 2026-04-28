@@ -12,7 +12,6 @@
     --color-amber-900: oklch(41.4% 0.112 45.904);
     --color-white: #fff;
     --spacing: 0.25rem;
-    --container-xs: 20rem;
     --container-sm: 24rem;
     --container-md: 28rem;
     --container-xl: 36rem;
@@ -1015,9 +1014,6 @@
   .bg-size-\[4px_4px\] {
     background-size: 4px 4px;
   }
-  .bg-clip-text {
-    background-clip: text;
-  }
   .object-contain {
     object-fit: contain;
   }
@@ -1258,9 +1254,6 @@
   }
   .text-red-500 {
     color: var(--color-red-500);
-  }
-  .text-transparent {
-    color: transparent;
   }
   .text-white {
     color: var(--color-white);
